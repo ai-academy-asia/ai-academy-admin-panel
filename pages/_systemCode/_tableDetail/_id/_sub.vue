@@ -62,7 +62,7 @@ export default {
     }
     return getAsyncData({
       $axios,
-      projectId: 8,
+      projectId: 9,
       tableName: params.tableDetail,
       id: params.id,
       sub: params.sub

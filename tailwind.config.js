@@ -17,7 +17,7 @@ module.exports = {
         'top-4': 'left top -1rem'
       },
       colors: {
-        corePrimary: '#3c71aa',
+        corePrimary: '#8F5AFF',
         coreDanger: '#EC6B5E',
         coreWarning: '#E6A23C',
         corePrimaryText: '#303133',

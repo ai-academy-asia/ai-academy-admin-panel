@@ -123,7 +123,7 @@ import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from
 export default {
   name: 'PageTable',
   asyncData ({ params, $axios }) {
-    return getAsyncData({ $axios, projectId: 8, tableName: params.tableName })
+    return getAsyncData({ $axios, projectId: 9, tableName: params.tableName })
   },
   data () {
     return {
@@ -155,7 +155,7 @@ export default {
       return this.$route.params.tableName
     },
     projectId () {
-      return 8
+      return 9
     },
     id: {
       get () {

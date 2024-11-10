@@ -77,7 +77,7 @@ import { getButtons } from '@/../core-components/utils/role-helper'
 export default {
   name: 'PageProfile',
   asyncData ({ params, $axios }) {
-    return getAsyncData({ $axios, projectId: 8, tableName: 'users' })
+    return getAsyncData({ $axios, projectId: 9, tableName: 'users' })
   },
   data () {
     return {
@@ -111,7 +111,7 @@ export default {
       return this.table.name
     },
     projectId () {
-      return '8'
+      return '9'
     },
     buttons () {
       return getButtons(this.level)

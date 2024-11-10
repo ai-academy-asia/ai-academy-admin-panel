@@ -45,7 +45,7 @@ import { get } from 'lodash'
 export default {
   name: 'PageReferences',
   async asyncData ({ $axios, params }) {
-    const { data } = await $axios.get('config/tables/refs/8', { params: { ...params } })
+    const { data } = await $axios.get('config/tables/refs/9', { params: { ...params } })
     return { tables: data.map(({ name, title, project_id, description }) => { return { name, title, project_id, description } }) }
   },
   data () {

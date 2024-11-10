@@ -9,8 +9,8 @@ export default {
   ],
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s | 8Ё',
-    title: 'Edu',
+    titleTemplate: '%s | AI Academy',
+    title: 'AI Academy',
     htmlAttrs: {
       lang: 'en'
     },

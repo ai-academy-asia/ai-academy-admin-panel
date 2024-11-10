@@ -29,7 +29,16 @@
       <div :class="['pl-5 pt-4 pb-8']">
         <div class="h-12 flex flex-row items-center justify-center'">
           <img
-            src="~assets/images/logo.jpg" :class="['duration-300 cursor-pointer rounded-full border', {
+            v-if="isCollapse"
+            src="~assets/images/logo_mini.svg" :class="['duration-300 cursor-pointer', {
+              'h-12': !isCollapse && !visibleMobileMenu,
+              'h-10': isCollapse && !visibleMobileMenu,
+              '!h-12': visibleMobileMenu
+            }]" lazy @dblclick="handleClickLogo"
+          >
+          <img
+            v-else
+            src="~assets/images/logo.svg" :class="['duration-300 cursor-pointer', {
               'h-12': !isCollapse && !visibleMobileMenu,
               'h-10': isCollapse && !visibleMobileMenu,
               '!h-12': visibleMobileMenu

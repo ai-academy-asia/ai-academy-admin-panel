@@ -2,7 +2,7 @@
   <div class="h-full block md:flex md:flex-row md:flex-row overflow-y-auto md:overflow-hidden pb-20 md:pb-0">
     <div class="w-full md:w-[420px] xl:w-[496px]  overflow-hidden md:overflow-y-auto pt-20 md:pt-36 pb-20">
       <div class="flex flex-row md:flex-col items-center justify-center text-left md:text-center gap-4 pb-8 md:pb-12">
-        <img src="~assets/images/logo.jpg" class="h-16 md:h-32 rounded-full border" lazy>
+        <img src="~assets/images/logo.svg" class="h-16" lazy>
         <p class="uppercase font-bold leading-6 text-lg">
           <system-name />
         </p>

@@ -121,7 +121,7 @@ const serviceName = (tableName) => {
 export default {
   name: 'PageDetail',
   asyncData ({ params, $axios }) {
-    return getAsyncData({ $axios, projectId: 8, tableName: serviceName(params.tableDetail) })
+    return getAsyncData({ $axios, projectId: 9, tableName: serviceName(params.tableDetail) })
   },
   data () {
     return {
@@ -156,7 +156,7 @@ export default {
       return serviceName(this.$route.params.tableDetail)
     },
     projectId () {
-      return 8
+      return 9
     },
     id: {
       get () {
