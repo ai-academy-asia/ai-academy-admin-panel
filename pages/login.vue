@@ -11,7 +11,7 @@
         id="iframeLogin"
         :style="`height: ${height}px`"
         class="overflow-hidden h-full w-full"
-        :src="`${env.authUrl}/login?p=${env.projectId}&type=${env.authTable}&requestId=${requestId}&props=google`"
+        :src="`${env.authUrl}/login?p=${env.projectId}&type=${env.authTable}&requestId=${requestId}&props=google,linkedin`"
         frameborder="0"
       />
     </div>
