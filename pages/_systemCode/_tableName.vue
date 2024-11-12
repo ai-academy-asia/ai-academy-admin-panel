@@ -47,6 +47,8 @@
       :api_title="api_title"
       is-detail
       :is-show-org-filter="isOrg && !visibleOrg"
+      :locales="locales"
+      :locale.sync="locale"
       @show-org-filter="set_visible_org(true)"
       @load="handleRefreshList"
       @excel="handleExcel"
@@ -106,12 +108,14 @@
         :has-password="hasPassword"
         :default-size="defaultSize"
         :searching="formSearching"
+        :locales="locales"
         width="100%"
         :config_group_fields="config_group_fields"
         :config_form_menus="config_form_menus"
         :ref-columns="refColumns"
         @form-search="handleFormSearch"
         @temp-change="handleTempChange"
+        @locale-change="handleLocaleChange"
       />
     </core-form-dialog>
   </div>
@@ -123,6 +127,7 @@ import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from
 export default {
   name: 'PageTable',
   asyncData ({ params, $axios }) {
+    console.log('params.tableName', params.tableName)
     return getAsyncData({ $axios, projectId: 9, tableName: params.tableName })
   },
   data () {

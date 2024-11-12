@@ -20,6 +20,7 @@
       :ref-columns="refColumns"
       :searching="formSearching"
       :level="level"
+      :locales="locales"
       @temp-change="handleTempChange"
       @form-search="handleFormSearch"
     >

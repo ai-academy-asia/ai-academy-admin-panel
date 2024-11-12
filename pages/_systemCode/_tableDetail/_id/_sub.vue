@@ -15,6 +15,7 @@
       size-button="mini"
       :current-row-id="currentRowId"
       :loading-excel="loadingExcel"
+      :locales="locales"
       @excel="handleExcel"
       @create="handleCreate"
       @update="handleUpdate"
