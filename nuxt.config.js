@@ -5,7 +5,7 @@ const defaultConfig = getDefaultConfig()
 export default {
   ...defaultConfig,
   serverMiddleware: [
-    { path: '/ckeditor', handler: serveStatic(join(__dirname, '../core-components/ckeditor')) }
+    { path: `${routerBase}ckeditor`, handler: serveStatic(join(__dirname, '../core-components/ckeditor')) }
   ],
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
