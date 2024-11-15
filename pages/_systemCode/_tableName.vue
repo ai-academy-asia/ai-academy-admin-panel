@@ -127,7 +127,6 @@ import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from
 export default {
   name: 'PageTable',
   asyncData ({ params, $axios }) {
-    console.log('params.tableName', params.tableName)
     return getAsyncData({ $axios, projectId: 9, tableName: params.tableName })
   },
   data () {
