@@ -2,7 +2,7 @@ import { join } from 'path'
 import serveStatic from 'serve-static'
 import { getDefaultConfig } from '../core-components/utils/default-nuxt-config'
 const defaultConfig = getDefaultConfig()
-const ckPath = join(defaultConfig.router.base, ckeditor)
+const ckPath = join(defaultConfig.router.base, 'ckeditor')
 export default {
   ...defaultConfig,
   serverMiddleware: [
