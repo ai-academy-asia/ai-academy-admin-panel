@@ -23,6 +23,7 @@
       :locales="locales"
       @temp-change="handleTempChange"
       @form-search="handleFormSearch"
+      @locale-change="handleLocaleChange"
     >
       <div slot="actions" class="w-full px-2 flex flex-row flex-wrap justify-end">
         <el-button
