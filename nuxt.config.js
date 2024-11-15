@@ -2,11 +2,10 @@ import { join } from 'path'
 import serveStatic from 'serve-static'
 import { getDefaultConfig } from '../core-components/utils/default-nuxt-config'
 const defaultConfig = getDefaultConfig()
-const ckPath = join(defaultConfig.router.base, 'ckeditor')
 export default {
   ...defaultConfig,
   serverMiddleware: [
-    { path: ckPath, handler: serveStatic(join(__dirname, '../core-components/ckeditor')) }
+    { path: '/ckeditor', handler: serveStatic(join(__dirname, '../core-components/ckeditor')) }
   ],
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
