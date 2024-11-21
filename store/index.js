@@ -46,13 +46,16 @@ export const mutations = {
   }
 }
 export const actions = {
-  async nuxtServerInit ({ dispatch, commit }, { $cookies, query, redirect }) {
+  async nuxtServerInit ({ dispatch, commit }, { $cookies, query, redirect, route }) {
     try {
       const userPositionId = this.$cookies.get('USER_POSITION_ID', { path: '/' })
       if (userPositionId) {
         commit('SET_USER_POSITION_ID', userPositionId)
       }
       await dispatch('settings/init', { $cookies, query, redirect })
+      if (route.name === 'video') {
+        return
+      }
       await dispatch('user/init', { $cookies, query, redirect })
       await dispatch('refresh_user_menus')
       const visibleOrg = this.$cookies.get('SET_VISIBLE_ORG', { path: '/' })
