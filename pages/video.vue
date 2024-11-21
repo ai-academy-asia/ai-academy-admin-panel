@@ -1,6 +1,16 @@
 <template>
   <div class="w-full">
-    <video ref="videoJsPlayer" class="video-js vjs-defaultskin vjs-16-9" playsinline crossorigin="anonymous" />
+    <video ref="videoJsPlayer" class="video-js vjs-defaultskin vjs-16-9" playsinline crossorigin="anonymous">
+      <track
+        v-for="sub in this.item?.SUBTITLES"
+        :key="sub._id"
+        :src="env.baseUrl + '/file/' + sub.file._id"
+        kind="subtitles"
+        :srclang="sub.locale_id.code"
+        :label="sub.locale_id.name"
+        :default="lang === sub.locale_id.code"
+      />
+    </video>
   </div>
 </template>
 <script>
@@ -11,6 +21,10 @@ const MenuItem = videojs.getComponent('MenuItem')
 export default {
   name: 'VideoJsPlayer',
   layout: 'empty',
+  async asyncData ({ $axios, query }) {
+    const { data } = await $axios.get(`9/ref_videos/${query.id}`)
+    return { item: data }
+  },
   data () {
     return {
       loading: false,
@@ -30,8 +44,8 @@ export default {
     videoOptions () {
       return {
         controls: true,
-        responsive: true,
-        fluid: true,
+        autoplay: false,
+        preload: 'auto',
         poster: this.item.image ? this.env.baseUrl + '/file/' + this.item.image._id : null,
         sources: this.item?.QUALITIES.map((c) => {
           return {
@@ -40,16 +54,16 @@ export default {
             label: c.quality_id.name,
             res: Number(c.quality_id.name.slice(0, -1))
           }
-        }),
-        tracks: this.item?.SUBTITLES.map((c) => {
-          return {
-            src: this.env.baseUrl + '/file/' + c.file._id,
-            kind: 'captions',
-            srclang: c.locale_id.code,
-            label: c.locale_id.name,
-            default: c.locale_id.code === this.lang
-          }
-        })
+        }) // ,
+        // tracks: this.item?.SUBTITLES.map((c) => {
+        //   return {
+        //     src: this.env.baseUrl + '/file/' + c.file._id,
+        //     kind: 'subtitles',
+        //     srclang: c.locale_id.code,
+        //     label: c.locale_id.name,
+        //     default: c.locale_id.code === this.lang
+        //   }
+        // })
       }
     }
   },
@@ -91,15 +105,20 @@ export default {
     }
   },
   methods: {
-    async handleRefresh () {
+    handleRefresh () {
       try {
-        this.loading = true
+        // this.loading = true
         this.ready = false
-        const { data } = await this.$axios.get(`9/ref_videos/${this.id}`)
-        this.item = data
+        // const { data } = await this.$axios.get(`9/ref_videos/${this.id}`)
+        // this.item = data
+        videojs.log.level('debug')
         this.player = videojs(this.$refs.videoJsPlayer, { ...this.videoOptions }, () => {
           this.ready = true
           this.player.log('video player ready')
+          // const tracks = this.player.textTracks()
+          // if (tracks.length > 0) {
+          //   tracks[0].mode = 'showing'
+          // }
         })
         this.player.getChild('ControlBar').addChild('CustomMenuButton', {
           customLabel: '1080p'
@@ -108,7 +127,7 @@ export default {
       } catch (err) {
         this.$showError(err)
       } finally {
-        this.loading = false
+        // this.loading = false
       }
     }
   }
