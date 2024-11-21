@@ -7,23 +7,7 @@
 import { mapGetters } from 'vuex'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.min.css'
-// const MenuButton = videojs.getComponent('MenuButton')
 const MenuItem = videojs.getComponent('MenuItem')
-// class MyComponent extends MenuButton {
-//   constructor (player, options) {
-//     super(player, options)
-//   }
-//   createItems () {
-//     return this.options_.myItems.map(function (i) {
-//       const item = new MenuItem(player, { label: i.name })
-//       item.handleClick = function () {
-//         console.log('ddds')
-//       }
-//       return item
-//     })
-//   }
-// }
-// videojs.registerComponent('MyComponent', MyComponent)
 export default {
   name: 'VideoJsPlayer',
   layout: 'empty',
@@ -48,7 +32,7 @@ export default {
         controls: true,
         responsive: true,
         fluid: true,
-        poster: !this.item.image ? this.env.baseUrl + '/file/' + this.item.image._id : null,
+        poster: this.item.image ? this.env.baseUrl + '/file/' + this.item.image._id : null,
         sources: this.item?.QUALITIES.map((c) => {
           return {
             src: this.env.baseUrl + '/file/' + c.file._id,
