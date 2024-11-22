@@ -12,7 +12,7 @@ export default {
     titleTemplate: '%s | AI Academy',
     title: 'AI Academy',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'mn'
     },
     meta: [
       { charset: 'utf-8' },
