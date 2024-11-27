@@ -87,7 +87,9 @@
     <el-dialog title="Видео турших" :visible.sync="visibleVideo" width="600px">
       <scl-video v-if="visibleVideo" :id="videoId" />
       <div slot="footer" class="flex items-center justify-between">
-        <div class="text-sm font-medium">{{ currentRow?.name }}</div>
+        <div class="text-sm font-medium">
+          {{ currentRow?.name }}
+        </div>
         <el-button icon="el-icon-close" :size="defaultSize" @click="visibleVideo=false">
           Хаах
         </el-button>
