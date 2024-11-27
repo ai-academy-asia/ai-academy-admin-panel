@@ -1,30 +1,5 @@
 <template>
   <div v-if="table" class="w-full h-full overflow-hidden flex gap-2">
-    <transition name="el-fade-in-linear">
-      <div v-if="isOrg && visibleOrg" class="bg-white w-96 border text-sm overflow-auto">
-        <div class="flex justify-between pt-2 pl-4 pr-2">
-          <span>Байгууллагууд</span>
-          <div
-            class="w-6 h-6 rounded-full text-coreSecondaryText cursor-pointer hover:bg-black/[0.1] flex items-center justify-center"
-            @click="() => set_visible_org(false)"
-          >
-            <i class="el-icon-close" />
-          </div>
-        </div>
-        <core-select-tree-list
-          v-model="orgIds"
-          :visible="true"
-          :project-id="projectId"
-          table_name="hrm_organizations"
-          ref_column="name"
-          :size="defaultSize"
-          :disabled="false"
-          :multiple="true"
-          auto-height
-          @select="handleSelectOrg"
-        />
-      </div>
-    </transition>
     <core-table
       :project-id="projectId"
       :table_id="table._id"
@@ -49,6 +24,7 @@
       :is-show-org-filter="isOrg && !visibleOrg"
       :locales="locales"
       :locale.sync="locale"
+      :selectable="tableName === 'service_ref_videos'"
       @show-org-filter="set_visible_org(true)"
       @load="handleRefreshList"
       @excel="handleExcel"
@@ -64,21 +40,10 @@
       @current-row-change="handleCurrentRowChange"
       @delete="handleDelete"
     >
-      <div v-if="tableName.startsWith('service_users')" slot="table-header">
-        <el-radio-group v-model="sp" :size="defaultSize">
-          <el-radio-button label="service_users">
-            Ажиллаж байгаа
-          </el-radio-button>
-          <el-radio-button label="service_users01">
-            Түр чөлөөлөгдсөн
-          </el-radio-button>
-          <el-radio-button label="service_users02">
-            Чөлөөлөгдсөн
-          </el-radio-button>
-          <el-radio-button label="service_users03">
-            Хавсран гүйцэтгэх
-          </el-radio-button>
-        </el-radio-group>
+      <div slot="table-actions">
+        <el-button v-if="tableName === 'service_ref_videos'" :size="defaultSize" icon="el-icon-video-play" @click="handlePlayVideo">
+          Тоглуулах
+        </el-button>
       </div>
     </core-table>
     <core-form-dialog
@@ -109,6 +74,7 @@
         :default-size="defaultSize"
         :searching="formSearching"
         :locales="locales"
+        :level="level"
         width="100%"
         :config_group_fields="config_group_fields"
         :config_form_menus="config_form_menus"
@@ -118,6 +84,15 @@
         @locale-change="handleLocaleChange"
       />
     </core-form-dialog>
+    <el-dialog title="Видео турших" :visible.sync="visibleVideo" width="600px">
+      <scl-video v-if="visibleVideo" :id="videoId" />
+      <div slot="footer" class="flex items-center justify-between">
+        <div class="text-sm font-medium">{{ currentRow?.name }}</div>
+        <el-button icon="el-icon-close" :size="defaultSize" @click="visibleVideo=false">
+          Хаах
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -135,7 +110,8 @@ export default {
       orgId: null,
       defaultSize: 'small',
       orgIds: [],
-      selectedMenu: null
+      selectedMenu: null,
+      videoId: null
     }
   },
   head () {
@@ -179,6 +155,14 @@ export default {
     },
     isOrg () {
       return ['hrm_organizations', 'hrm_positions', 'hrm_users'].includes(this.table.name)
+    },
+    visibleVideo: {
+      get () {
+        return !!this.videoId
+      },
+      set () {
+        this.videoId = null
+      }
     }
   },
   watch: {
@@ -192,6 +176,9 @@ export default {
   methods: {
     ...mapActions(['set_visible_org']),
     ...tableMethods,
+    handlePlayVideo () {
+      this.videoId = this.currentRow?._id
+    },
     isCheckDetail () {
       const menus = ['service_users', 'service_employees']
       return menus.some(c => this.tableName.startsWith(c))

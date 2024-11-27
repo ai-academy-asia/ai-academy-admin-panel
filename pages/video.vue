@@ -2,14 +2,14 @@
   <div class="w-full">
     <video ref="videoJsPlayer" class="video-js vjs-defaultskin vjs-16-9" playsinline crossorigin="anonymous">
       <track
-        v-for="sub in this.item?.SUBTITLES"
+        v-for="sub in item?.SUBTITLES"
         :key="sub._id"
         :src="env.baseUrl + '/file/' + sub.file._id"
         kind="subtitles"
         :srclang="sub.locale_id.code"
         :label="sub.locale_id.name"
         :default="lang === sub.locale_id.code"
-      />
+      >
     </video>
   </div>
 </template>
@@ -54,16 +54,7 @@ export default {
             label: c.quality_id.name,
             res: Number(c.quality_id.name.slice(0, -1))
           }
-        }) // ,
-        // tracks: this.item?.SUBTITLES.map((c) => {
-        //   return {
-        //     src: this.env.baseUrl + '/file/' + c.file._id,
-        //     kind: 'subtitles',
-        //     srclang: c.locale_id.code,
-        //     label: c.locale_id.name,
-        //     default: c.locale_id.code === this.lang
-        //   }
-        // })
+        })
       }
     }
   },
@@ -71,7 +62,6 @@ export default {
     videojs.registerComponent('CustomMenuButton', class extends videojs.getComponent('MenuButton') {
       constructor (player, options) {
         super(player, options)
-        // console.log('player', this.player().lastSource_.player)
         this.controlText(options.customLabel)
         this.addClass('vjs-menu-button')
         this.addClass('vjs-control')
