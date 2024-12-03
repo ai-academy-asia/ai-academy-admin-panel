@@ -56,6 +56,8 @@
       :size-button="defaultSize"
       :width="formWidth"
       :level="level"
+      :unsaved-changes="unsavedChanges"
+      @set-unsaved-changes="set_unsaved_changes"
       @close="handleClose"
       @save="handleSave"
       @restore-password="handleRestorePassword"
