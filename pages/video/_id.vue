@@ -105,6 +105,7 @@ export default {
       return this.$route.query.token
     },
     videoOptions () {
+      const selectedQuality = window.localStorage.getItem('SELECTED_QUALITY')
       return {
         controls: true,
         autoplay: false,
@@ -115,7 +116,8 @@ export default {
             src: this.env.baseUrl + '/file/' + c.file._id,
             type: c.file.mimetype,
             label: c.quality_id.name,
-            res: Number(c.quality_id.name.slice(0, -1))
+            res: Number(c.quality_id.name.slice(0, -1)),
+            default: selectedQuality === c.quality_id.name
           }
         })
       }
@@ -141,6 +143,7 @@ export default {
           })
           item.handleClick = function () {
             const currentTime = that.player().currentTime()
+            window.localStorage.setItem('SELECTED_QUALITY', c.label)
             that.controlText(c.label)
             that.player().src(c)
             that.player().play()
@@ -232,8 +235,16 @@ export default {
           this.ready = true
           this.player.log('video player ready')
         })
+        const selectedQuality = window.localStorage.getItem('SELECTED_QUALITY')
+        let quality = ''
+        if (this.item?.QUALITIES?.length) {
+          quality = this.item?.QUALITIES[0].quality_id.name
+          if (this.item?.QUALITIES.some(c => c.quality_id.name === selectedQuality)) {
+            quality = selectedQuality
+          }
+        }
         this.player.getChild('ControlBar').addChild('CustomMenuButton', {
-          customLabel: this.item?.QUALITIES?.length ? this.item?.QUALITIES[0].quality_id.name : ''
+          customLabel: quality
         })
         window.parent.postMessage(JSON.stringify({ type: 'dimensions', data: this.player.currentDimensions('width') }), '*')
         if (this.auth_token) {
