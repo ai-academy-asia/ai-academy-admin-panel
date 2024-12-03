@@ -184,7 +184,7 @@ export default {
                 lesson_id: { val: String(this.lesson_id), t: 'number', op: 'eq' },
                 video_ended: { val: false, t: 'boolean', op: 'eq' }
               },
-              fields: 'video_id,course_id,topic_id,lesson_id,video_current_time,video_watching_time,times,sum_watching_time,video_ended'
+              fields: 'video_id,course_id,topic_id,lesson_id,video_current_time,video_watching_time,times,total_watching_time,video_ended'
             },
             headers: {
               Authorization: `Bearer ${this.auth_token}`
@@ -193,10 +193,10 @@ export default {
           if (this.videoLog?._id) {
             this.videoLog.times++
           }
-          this.sumWatchingTime = this.videoLog?.sum_watching_time || 0
+          this.sumWatchingTime = this.videoLog?.total_watching_time || 0
         }
         this.videoLog = {
-          video_id: this.id, course_id: this.course_id, topic_id: this.topic_id, lesson_id: this.lesson_id, video_current_time: 0, video_watching_time: 0, times: 1, sum_watching_time: 0, video_ended: false, video_duration: 0,
+          video_id: this.id, course_id: this.course_id, topic_id: this.topic_id, lesson_id: this.lesson_id, video_current_time: 0, video_watching_time: 0, times: 1, total_watching_time: 0, video_ended: false, video_duration: 0,
           ...this.videoLog
         }
         if (this.player.duration()) {
@@ -204,7 +204,7 @@ export default {
         }
         this.videoLog.video_ended = this.player.ended()
         this.videoLog.video_current_time = this.player.currentTime()
-        this.videoLog.sum_watching_time = this.sumWatchingTime + (this.watchingTime / 1000)
+        this.videoLog.total_watching_time = this.sumWatchingTime + (this.watchingTime / 1000)
         this.videoLog.video_watching_time = (this.watchingTime / 1000)
         await this.$axios.post('9/service_course_logs', this.videoLog, {
           headers: {
