@@ -175,6 +175,8 @@ export default {
       try {
         clearTimeout(this.logTimer)
         if (!this.videoLog?._id) {
+          const startDate = this.$moment().startOf('days').toDate()
+          const endDate = this.$moment().endOf('days').toDate()
           this.videoLog = (await this.$axios.get('one/9/service_course_logs', {
             params: {
               search: {
@@ -182,7 +184,8 @@ export default {
                 course_id: { val: this.course_id, t: 'number', op: 'eq' },
                 topic_id: { val: String(this.topic_id), t: 'number', op: 'eq' },
                 lesson_id: { val: String(this.lesson_id), t: 'number', op: 'eq' },
-                video_ended: { val: false, t: 'boolean', op: 'eq' }
+                video_ended: { val: false, t: 'boolean', op: 'eq' },
+                created_at: { val: [startDate, endDate], t: 'date', op: 'between' }
               },
               fields: 'video_id,course_id,topic_id,lesson_id,video_current_time,video_watching_time,times,total_watching_time,video_ended'
             },
