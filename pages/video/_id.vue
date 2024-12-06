@@ -23,6 +23,9 @@ import 'video.js/dist/video-js.min.css'
 import 'videojs-contrib-quality-levels'
 import 'videojs-hls-quality-selector'
 import 'videojs-hls-quality-selector/dist/videojs-hls-quality-selector.css'
+import 'hls.js'
+// import 'videojs-http-source-selector'
+// import 'videojs-http-source-selector/dist/videojs-http-source-selector.css'
 const MenuItem = videojs.getComponent('MenuItem')
 export default {
   name: 'VideoJsPlayer',
@@ -116,17 +119,19 @@ export default {
         poster: this.item.image ? this.env.baseUrl + '/file/' + this.item.image._id : null,
         sources: null,
         html5: {
-          hls: {
-            overrideNative: true
-          }
+          // vhs: { overrideNative: true },
+          hls: { overrideNative: false }
         },
-        hls: { overrideNative: true },
+        // vhs: { overrideNative: true },
+        hls: { overrideNative: false },
         techOrder: ['html5']
       }
       if (this.item.is_hls) {
         options.sources = [{
           src: this.env.baseUrl + '/file/video/hls/' + this.id + '.m3u8',
+          // src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
           type: 'application/x-mpegURL'
+          // type: 'application/vnd.apple.mpegurl'
         }]
       } else {
         const selectedQuality = window.localStorage.getItem('SELECTED_QUALITY')
@@ -244,6 +249,16 @@ export default {
         this.$showError(err, { hideMessage: true })
       }
     },
+    isHLSSupported () {
+      if (videojs.Hls) {
+        return true
+      }
+      return (
+        videojs.browser.IS_SAFARI || // Safari natively supports HLS
+        videojs.browser.IS_IOS || // iOS supports native HLS
+        (window.MediaSource && window.MediaSource.isTypeSupported && window.MediaSource.isTypeSupported('application/vnd.apple.mpegurl'))
+      )
+    },
     handleRefresh () {
       try {
         if (!this.item?._id) {
@@ -255,14 +270,10 @@ export default {
           this.ready = true
           this.player.log('video player ready')
         })
-        this.player.on('loadedmetadata', () => {
-          console.log('Player ready with quality selector')
-        })
-        this.player.on('qualitySelected', (event, quality) => {
-          console.log(`Quality changed to: ${quality}`)
-        })
         if (this.item.is_hls) {
-          this.player.hlsQualitySelector({ displayCurrentQuality: true })
+          console.log(this.isHLSSupported(), 'this.isHLSSupported()')
+          this.player.hlsQualitySelector({ displayCurrentQuality: !this.isHLSSupported() })
+          // this.player.httpSourceSelector()
         } else {
           const selectedQuality = window.localStorage.getItem('SELECTED_QUALITY')
           let quality = ''
@@ -276,6 +287,17 @@ export default {
             customLabel: quality
           })
         }
+        this.player.on('loadedmetadata', () => {
+          console.log('Player ready with quality selector')
+          const qualityLevels = this.player.qualityLevels()
+          console.log('-qualityLevels', qualityLevels)
+          qualityLevels.on('addqualitylevel', (event) => {
+            console.log('Quality level added:', event.qualityLevel)
+          })
+        })
+        this.player.on('qualityLevelChanged', (event, quality) => {
+          console.log(`Quality changed to: ${quality}`)
+        })
         window.parent.postMessage(JSON.stringify({ type: 'dimensions', data: this.player.currentDimensions('width') }), '*')
         if (this.auth_token) {
           this.player.on('playing', () => {
