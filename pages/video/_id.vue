@@ -20,6 +20,9 @@
 import { mapGetters } from 'vuex'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.min.css'
+import 'videojs-contrib-quality-levels'
+import 'videojs-hls-quality-selector'
+import 'videojs-hls-quality-selector/dist/videojs-hls-quality-selector.css'
 const MenuItem = videojs.getComponent('MenuItem')
 export default {
   name: 'VideoJsPlayer',
@@ -67,7 +70,7 @@ export default {
     return {
       loading: false,
       ready: false,
-      item: null,
+      // item: null,
       player: null,
       error: null,
       videoLog: null,
@@ -105,13 +108,22 @@ export default {
       return this.$route.query.token
     },
     videoOptions () {
-      const selectedQuality = window.localStorage.getItem('SELECTED_QUALITY')
-      return {
+      const options = {
         controls: true,
         autoplay: false,
         preload: 'auto',
+        fluid: true, // Makes the player responsive
         poster: this.item.image ? this.env.baseUrl + '/file/' + this.item.image._id : null,
-        sources: this.item?.QUALITIES?.map((c) => {
+        sources: null
+      }
+      if (this.item.is_hls) {
+        options.sources = [{
+          src: this.env.baseUrl + '/file/video/hls/' + this.id + '.m3u8',
+          type: 'application/x-mpegURL'
+        }]
+      } else {
+        const selectedQuality = window.localStorage.getItem('SELECTED_QUALITY')
+        options.sources = this.item?.QUALITIES?.map((c) => {
           return {
             src: this.env.baseUrl + '/file/' + c.file._id,
             type: c.file.mimetype,
@@ -121,6 +133,7 @@ export default {
           }
         })
       }
+      return options
     }
   },
   mounted () {
@@ -235,17 +248,27 @@ export default {
           this.ready = true
           this.player.log('video player ready')
         })
-        const selectedQuality = window.localStorage.getItem('SELECTED_QUALITY')
-        let quality = ''
-        if (this.item?.QUALITIES?.length) {
-          quality = this.item?.QUALITIES[0].quality_id.name
-          if (this.item?.QUALITIES.some(c => c.quality_id.name === selectedQuality)) {
-            quality = selectedQuality
-          }
-        }
-        this.player.getChild('ControlBar').addChild('CustomMenuButton', {
-          customLabel: quality
+        this.player.on('loadedmetadata', () => {
+          console.log('Player ready with quality selector')
         })
+        this.player.on('qualitySelected', (event, quality) => {
+          console.log(`Quality changed to: ${quality}`)
+        })
+        if (this.item.is_hls) {
+          this.player.hlsQualitySelector({ displayCurrentQuality: true })
+        } else {
+          const selectedQuality = window.localStorage.getItem('SELECTED_QUALITY')
+          let quality = ''
+          if (this.item?.QUALITIES?.length) {
+            quality = this.item?.QUALITIES[0].quality_id.name
+            if (this.item?.QUALITIES.some(c => c.quality_id.name === selectedQuality)) {
+              quality = selectedQuality
+            }
+          }
+          this.player.getChild('ControlBar').addChild('CustomMenuButton', {
+            customLabel: quality
+          })
+        }
         window.parent.postMessage(JSON.stringify({ type: 'dimensions', data: this.player.currentDimensions('width') }), '*')
         if (this.auth_token) {
           this.player.on('playing', () => {
