@@ -117,7 +117,7 @@ export default {
         sources: null,
         html5: {
           hls: {
-            overrideNative: true,
+            overrideNative: true
           }
         }
       }
