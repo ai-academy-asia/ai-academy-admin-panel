@@ -114,7 +114,12 @@ export default {
         preload: 'auto',
         fluid: true, // Makes the player responsive
         poster: this.item.image ? this.env.baseUrl + '/file/' + this.item.image._id : null,
-        sources: null
+        sources: null,
+        html5: {
+          hls: {
+            overrideNative: true,
+          }
+        }
       }
       if (this.item.is_hls) {
         options.sources = [{
