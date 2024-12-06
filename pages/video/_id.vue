@@ -119,7 +119,9 @@ export default {
           hls: {
             overrideNative: true
           }
-        }
+        },
+        hls: { overrideNative: true },
+        techOrder: ['html5']
       }
       if (this.item.is_hls) {
         options.sources = [{
