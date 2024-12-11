@@ -26,10 +26,10 @@ export default {
     list: {
       type: Array, default: () => {
         return [
-          { title: 'ЦЭЦИЙН ГИШҮҮН', count: '9', color: '#316A9A', icon: 'isax isax-attach-circle', key: 'countMembers' },
-          { title: 'БҮРТГЭЛИЙН ТОО', count: '199', color: '#F4BF4F', icon: 'isax isax-attach-circle', key: 'countRegs' },
-          { title: 'АЛГАСАХ НӨХЦӨЛИЙН ТОО', count: '68', color: '#9747FF', icon: 'isax isax-attach-circle', key: 'countLeaves' },
-          { title: 'ХУВААРИЛАЛТ ШИНЭЭР ЭХЛҮҮЛЭХ', count: '1', color: '#97C8EB', icon: 'isax isax-attach-circle', key: 'countSettings' }
+          { title: 'Сургалт', count: '9', color: '#316A9A', icon: 'isax isax-attach-circle', key: 'countCourses' },
+          { title: 'Видео', count: '68', color: '#9747FF', icon: 'isax isax-attach-circle', key: 'countVideos' },
+          { title: 'Сурагч', count: '199', color: '#F4BF4F', icon: 'isax isax-attach-circle', key: 'countStudents' },
+          { title: 'Үзэлт', count: '1', color: '#97C8EB', icon: 'isax isax-attach-circle', key: 'countViews' }
         ]
       }
     }
