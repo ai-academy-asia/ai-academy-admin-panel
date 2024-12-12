@@ -4,7 +4,7 @@
       <track
         v-for="sub in item?.SUBTITLES"
         :key="sub._id"
-        :src="env.baseUrl + '/file/' + sub.file._id"
+        :src="'/file/' + sub.file._id"
         kind="subtitles"
         :srclang="sub.locale_id.code"
         :label="sub.locale_id.name"
@@ -46,10 +46,10 @@ export default {
         controls: true,
         autoplay: false,
         preload: 'auto',
-        poster: this.item.image ? this.env.baseUrl + '/file/' + this.item.image._id : null,
+        poster: this.item.image ? '/file/' + this.item.image._id : null,
         sources: this.item?.QUALITIES.map((c) => {
           return {
-            src: this.env.baseUrl + '/file/' + c.file._id,
+            src: '/file/' + c.file._id,
             type: c.file.mimetype,
             label: c.quality_id.name,
             res: Number(c.quality_id.name.slice(0, -1))

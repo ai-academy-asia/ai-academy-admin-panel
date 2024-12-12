@@ -10,7 +10,7 @@
         <div class="flex flex-row justify-between px-4 items-center">
           <div class="flex gap-2 items-center">
             <div class="size-8 rounded-full bg-coreBgMain text-sm text-coreSecondaryText flex items-center justify-center">
-              <img v-if="item.created_by?.image" class="size-8 rounded-full object-cover" :src="`${env.baseUrl}/file/${(item.created_by?.image?._id || item.created_by?.image)}`">
+              <img v-if="item.created_by?.image" class="size-8 rounded-full object-cover" :src="`/file/${(item.created_by?.image?._id || item.created_by?.image)}`">
               <span v-else>{{ item.created_by?.full_name?.slice(0, 1) }}</span>
             </div>
             <div>
@@ -29,7 +29,7 @@
         </div>
         <div class="px-4">
           <!-- <nuxt-link :to="{ name: 'news-id', params: { id: item._id } }"> -->
-            <img class="w-full aspect-video object-cover" :src="`${env.baseUrl}/file/${(item.image?._id || item.image)}`">
+            <img class="w-full aspect-video object-cover" :src="`/file/${(item.image?._id || item.image)}`">
           <!-- </nuxt-link> -->
         </div>
         <!-- <div class="border-t px-4 py-[12px] flex justify-center gap-6 text-coreSecondaryText text-sm leading-3">
