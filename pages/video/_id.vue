@@ -7,7 +7,7 @@
       <track
         v-for="sub in item?.SUBTITLES"
         :key="sub._id"
-        :src="'/file/' + sub.file._id"
+        :src="'/api/file/' + sub.file._id"
         kind="subtitles"
         :srclang="sub.locale_id.code"
         :label="sub.locale_id.name"
@@ -118,19 +118,17 @@ export default {
         autoplay: false,
         preload: 'auto',
         fluid: true, // Makes the player responsive
-        poster: this.item.image ? '/file/' + this.item.image._id : null,
+        poster: this.item.image?._id ? '/api/file/' + this.item.image._id : null,
         sources: null,
         html5: {
-          // vhs: { overrideNative: true },
           hls: { overrideNative: false }
         },
-        // vhs: { overrideNative: true },
         hls: { overrideNative: false },
         techOrder: ['html5']
       }
       if (this.item.is_hls) {
         options.sources = [{
-          src: '/file/video/hls/' + this.id + '.m3u8',
+          src: '/api/file/video/hls/' + this.id + '.m3u8',
           // src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
           type: 'application/x-mpegURL'
           // type: 'application/vnd.apple.mpegurl'
@@ -139,7 +137,7 @@ export default {
         const selectedQuality = window.localStorage.getItem('SELECTED_QUALITY')
         options.sources = this.item?.QUALITIES?.map((c) => {
           return {
-            src: '/file/' + c.file._id,
+            src: '/api/file/' + c.file._id,
             type: c.file.mimetype,
             label: c.quality_id.name,
             res: Number(c.quality_id.name.slice(0, -1)),

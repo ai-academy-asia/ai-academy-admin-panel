@@ -59,7 +59,7 @@
           <tr :key="item._id">
             <td v-for="col in columns" :key="col.key" :class="['border border-slate-200 px-2 py-1', { 'text-coreSecondaryText text-xs': col.isSecondary }]" :align="col.align" :rowspan="col.isRowspan && item.members?.length ? '2' : '1'">
               {{ get(item, col.key) }}
-              <a v-if="col.isRowspan && item.file" :href="env.baseUrl + '/file/' + item.file" target="_blank" class="underline py-1 w-full text-center">Хавсралт файл</a>
+              <a v-if="col.isRowspan && item.file" :href="'/api/file/' + item.file" target="_blank" class="underline py-1 w-full text-center">Хавсралт файл</a>
               <div v-if="col.isRowspan && item.reg_status_id.code.startsWith('PROCESS') && item.members?.length" class="text-center">
                 <boolean-label class="mt-1" :value="item.is_random" :label="item.is_random ? 'Санамсаргүй' : 'Гараар'" />
                 <el-button type="text" icon="el-icon-print" :loading="printing.includes(item._id)" @click="handlePrint(item)">

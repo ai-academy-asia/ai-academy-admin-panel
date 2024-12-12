@@ -21,7 +21,6 @@ module.exports = {
         coreDanger: '#EC6B5E',
         coreWarning: '#E6A23C',
         corePrimaryText: '#303133',
-        coreRegularText: '#606266',
         coreSecondaryText: '#909399',
         coreLightBorder: '#E4E7ED',
         coreBaseBorder: '#DCDFE6',
@@ -30,7 +29,10 @@ module.exports = {
         coreBgHover: '#F5F7FA',
         coreBgInput: '#f9fafb',
         coreInputBorder: '#d1d5db',
-        coreBlue: '#409EFF'
+        coreBlue: '#409EFF',
+        corePrimaryText: 'var(--foreground-primary)',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)'
       },
       fontFamily: {
         sans: [

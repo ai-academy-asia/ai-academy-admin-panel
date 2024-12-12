@@ -1,3 +1,13 @@
+:root, [data-theme=default] {
+  --background: hsl(0 0 100%);
+  --foreground-primary: #52525B;
+  --foreground-label: #303133;
+  --foreground: #303133;
+  --background-input-disabled: white;
+  --background-input: rgb(249 250 251);
+  --border-input: rgb(209 213 219);
+  --foreground-input: rgb(75 85 99);
+}
 html {
   background-color: #F8F9FA;
   color: #2D3748;

@@ -4,7 +4,7 @@
       <track
         v-for="sub in item?.SUBTITLES"
         :key="sub._id"
-        :src="'/file/' + sub.file._id"
+        :src="'/api/file/' + sub.file._id"
         kind="subtitles"
         :srclang="sub.locale_id.code"
         :label="sub.locale_id.name"
@@ -46,24 +46,15 @@ export default {
         controls: true,
         autoplay: false,
         preload: 'auto',
-        poster: this.item.image ? '/file/' + this.item.image._id : null,
+        poster: this.item.image?._id ? '/api/file/' + this.item.image._id : null,
         sources: this.item?.QUALITIES.map((c) => {
           return {
-            src: '/file/' + c.file._id,
+            src: '/api/file/' + c.file._id,
             type: c.file.mimetype,
             label: c.quality_id.name,
             res: Number(c.quality_id.name.slice(0, -1))
           }
-        }) // ,
-        // tracks: this.item?.SUBTITLES.map((c) => {
-        //   return {
-        //     src: this.env.baseUrl + '/file/' + c.file._id,
-        //     kind: 'subtitles',
-        //     srclang: c.locale_id.code,
-        //     label: c.locale_id.name,
-        //     default: c.locale_id.code === this.lang
-        //   }
-        // })
+        })
       }
     }
   },
