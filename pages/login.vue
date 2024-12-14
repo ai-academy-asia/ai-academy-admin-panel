@@ -39,7 +39,7 @@ import middleware from '@/../core-components/middleware/login'
 export default {
   name: 'PageLogin',
   layout: 'empty',
-  middleware: [middleware, 'check-login'],
+  middleware: [middleware],
   data () {
     return {
       contactMail: 'info@get-api.com',
