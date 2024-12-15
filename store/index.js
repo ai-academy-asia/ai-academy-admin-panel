@@ -65,6 +65,8 @@ export const actions = {
       const status = get(err, 'response.status')
       if (status === 401) {
         redirect('/login')
+      } else {
+        console.log('erorrr', get(err, 'response.data'))
       }
     }
   },

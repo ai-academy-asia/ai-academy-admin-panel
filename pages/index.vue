@@ -84,20 +84,16 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'PageIndex',
   async asyncData ({ $axios }) {
-    const { data: news } = await $axios.get('list/9/service_anews', {
-      params: {
-        extraFields: 'created_by.full_name,created_by.position_name,created_at,created_by.image'
-      }
-    })
-    const { data: { count: countCourses } } = await $axios.get('count/9/service_acourses')
-    const { data: { count: countStudents } } = await $axios.get('count/9/service_astudents')
-    const { data: { count: countVideos } } = await $axios.get('count/9/service_ref_videos')
-    const { data: { count: countViews } } = await $axios.get('count/9/student_course_logs')
+    // const { data: news } = await $axios.get('list/9/service_anews', {
+    //   params: {
+    //     extraFields: 'created_by.full_name,created_by.position_name,created_at,created_by.image'
+    //   }
+    // })
+    // const { data: { count: countCourses } } = await $axios.get('count/9/service_acourses')
+    // const { data: { count: countStudents } } = await $axios.get('count/9/service_astudents')
+    // const { data: { count: countVideos } } = await $axios.get('count/9/service_ref_videos')
+    // const { data: { count: countViews } } = await $axios.get('count/9/student_course_logs')
     const counts = {
-      countCourses,
-      countStudents,
-      countVideos,
-      countViews
     }
     return { news, counts }
   },
