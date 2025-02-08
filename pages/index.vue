@@ -11,7 +11,7 @@
             <div class="text-left text-corePrimary font-medium text-sm">
               Системд нэвтэрсэн: {{ $moment().format('YYYY-MM-DD') }}
             </div>
-            <div class="flex-row flex gap-2">
+            <div v-if="user" class="flex-row flex gap-2">
               <div class="h-[100px] w-[90px] items-center flex justify-center  rounded-lg bg-coreBgInput text-coreBaseBorder">
                 <img
                   v-if="user.image?._id || user.image"
