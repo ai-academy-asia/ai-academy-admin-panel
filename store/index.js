@@ -78,7 +78,7 @@ export const actions = {
     commit('SET_VISIBLE_ORG', data)
   },
   async refresh_user_menus ({ commit, getters }) {
-    if (!getters['user/token']) {
+    if (!getters['user/user']) {
       return
     }
     const { data } = await this.$axios.get('config/user/menus')
