@@ -62,12 +62,12 @@ export const actions = {
       commit('SET_VISIBLE_ORG', visibleOrg !== 'HIDDEN')
     } catch (err) {
       Vue.prototype.$log('nuxtServerInit', err)
-      const status = get(err, 'response.status')
-      if (status === 401) {
-        redirect('/login')
-      } else {
-        console.log('erorrr', get(err, 'response.data'))
-      }
+      // const status = get(err, 'response.status')
+      // if (status === 401) {
+      //   redirect({ name: 'login' })
+      // } else {
+      //   console.log('erorrr', get(err, 'response.data'))
+      // }
     }
   },
   set_pdf_url ({ commit }, data) {

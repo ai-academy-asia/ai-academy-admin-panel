@@ -45,7 +45,6 @@ export default {
     '@/../core-components/plugins/global-methods',
     '@/../core-components/plugins/axios',
     { src: '@/../core-components/plugins/dialog-draggable', mode: 'client' },
-    '@/plugins/axios',
     { src: '@/../core-components/plugins/ckeditor.js', mode: 'client' }
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
