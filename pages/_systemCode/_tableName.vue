@@ -21,11 +21,9 @@
       :api_id="api_id"
       :api_title="api_title"
       is-detail
-      :is-show-org-filter="isOrg && !visibleOrg"
       :locales="locales"
       :locale.sync="locale"
       :selectable="tableName === 'service_ref_videos'"
-      @show-org-filter="set_visible_org(true)"
       @load="handleRefreshList"
       @excel="handleExcel"
       @create="handleCreate"
@@ -100,13 +98,12 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import { set, get } from 'lodash'
+import { mapGetters } from 'vuex'
 import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from '@/../core-components/utils/table-helper'
 export default {
   name: 'PageTable',
   asyncData ({ params, $axios }) {
-    return getAsyncData({ $axios, projectId: 9, tableName: params.tableName })
+    return getAsyncData({ $axios, projectId: '9', tableName: params.tableName })
   },
   data () {
     return {
@@ -126,7 +123,6 @@ export default {
   computed: {
     ...tableComputed,
     ...mapGetters('user', ['user']),
-    ...mapGetters(['visibleOrg']),
     currentPage: {
       get () {
         return this.$route.query.page ? Number(this.$route.query.page) : 1
@@ -146,7 +142,29 @@ export default {
         return this.$route.query.id
       },
       set (val) {
-        this.$router.push({ query: { ...this.$route.query, id: val } })
+        const query = { ...this.$route.query }
+        if (val) {
+          this.$router.push({ query: { ...query, id: val } })
+        } else {
+          delete query.id
+          delete query.tid
+          this.$router.push({ query: { ...query } })
+        }
+      }
+    },
+    tid: {
+      get () {
+        return this.$route.query.tid
+      },
+      set (val) {
+        const query = { ...this.$route.query }
+        if (val) {
+          this.$router.push({ query: { ...query, tid: val } })
+        } else {
+          delete query.id
+          delete query.tid
+          this.$router.push({ query: { ...query } })
+        }
       }
     },
     sp: {
@@ -156,9 +174,6 @@ export default {
       set (val) {
         this.$router.push({ params: { tableName: val } })
       }
-    },
-    isOrg () {
-      return ['hrm_organizations', 'hrm_positions', 'hrm_users'].includes(this.table.name)
     },
     visibleVideo: {
       get () {
@@ -175,62 +190,19 @@ export default {
   mounted () {
     this.resetDefaultTemp()
     this.resetSearch()
-    // this.handleRefreshList()
   },
   methods: {
-    ...mapActions(['set_visible_org']),
     ...tableMethods,
     handlePlayVideo () {
       this.videoId = this.currentRow?._id
     },
-    isCheckDetail () {
-      const menus = ['service_users', 'service_employees']
-      return menus.some(c => this.tableName.startsWith(c))
-    },
     handleDetail (row) {
-      if (this.tableName.startsWith('service_users')) {
-        const id = get(row, 'employee_id._id')
-        this.$router.push({
-          name: 'systemCode-tableDetail-id',
-          params: { tableDetail: this.tableName, id: row._id === 'create' ? 'create' : id },
-          query: { ...this.$route.query, submenu: 'POSITION' }
-        })
-      } else {
-        this.$router.push({
-          name: 'systemCode-tableDetail-id',
-          params: { tableDetail: this.tableName, id: row._id },
-          query: { ...this.$route.query }
-        })
-      }
-    },
-    beforeGetList () {
-      if (this.isOrg && this.visibleOrg) {
-        if (this.orgIds && this.orgIds.length > 0) {
-          if (this.table.name === 'hrm_organizations') {
-            set(this.search, '$and.parent_id', { val: this.orgIds, t: 'number', op: 'in' })
-          } else {
-            set(this.search, '$and.organization_id', { val: this.orgIds, t: 'number', op: 'in' })
-          }
-        } else {
-          set(this.search, '$and.organization_id', { val: null, t: 'number', op: 'in' })
-        }
-      }
-    },
-    handleSelectOrg (item) {
-      const index = this.orgIds.indexOf(item._id)
-      if (index > -1) {
-        this.orgIds.splice(index, 1)
-      } else {
-        this.orgIds.push(item._id)
-      }
-      this.handleRefresh()
+      this.$router.push({
+        name: 'systemCode-tableDetail-id',
+        params: { tableDetail: this.tableName, id: row._id },
+        query: { ...this.$route.query, tid: row.tid }
+      })
     }
-    // async beforeFormSearch () {
-    //   try {
-    //   } catch (err) {
-    //     this.$showError(err)
-    //   }
-    // }
   }
 }
 </script>

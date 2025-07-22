@@ -168,6 +168,20 @@ export default {
         this.$router.push({ params: { ...this.$route.params, id: val } })
       }
     },
+    tid: {
+      get () {
+        return this.$route.query.tid
+      },
+      set (val) {
+        const query = { ...this.$route.query }
+        if (val) {
+          query.tid = val
+        } else {
+          delete query.tid
+        }
+        this.$router.push({ query: { ...query } })
+      }
+    },
     buttons () {
       return getButtons(this.level)
     }
@@ -183,11 +197,11 @@ export default {
     ...tableMethods,
     handleClose () {
       const params = { ...this.$route.params }
+      const query = { ...this.$route.query }
+      delete query.tid
       this.$router.push({
         path: `/${params.systemCode}/${params.tableDetail}`,
-        // name: 'systemCode-tableName',
-        // params: { systemCode: params.systemCode, tableName: params.tableDetail },
-        query: { ...this.$route.query }
+        query: { ...query }
       })
     },
     handleSaved (row) {

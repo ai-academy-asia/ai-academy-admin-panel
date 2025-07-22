@@ -11,7 +11,7 @@
         id="iframeLogin"
         :style="`height: ${height}px`"
         class="overflow-hidden h-full w-full"
-        :src="`${env.authUrl}/login?p=${env.projectId}&type=${env.authTable}&requestId=${requestId}&props=google,linkedin`"
+        :src="loginUrl"
         frameborder="0"
       />
     </div>
@@ -59,7 +59,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('settings', ['env'])
+    ...mapGetters('settings', ['env']),
+    ...mapGetters('user', ['tokenName']),
+    loginUrl () {
+      const params = [`p=${this.env.projectId}`, `type=${this.env.authTable}`]
+      if (this.requestId) {
+        params.push(`requestId=${this.requestId}`)
+      }
+      if (this.tokenName) {
+        params.push(`tn=${this.tokenName}`)
+      }
+      params.push('props=google,linkedin')
+      return `${this.env.authUrl}/login?` + params.join('&')
+    }
   },
   mounted () {
     // const socket = io(this.env.baseUrl, { path: '/api' })
@@ -99,10 +111,10 @@ export default {
         this.isLogged = true
         this.token = token
         if (has(token, 'token') && has(token, 'user')) {
-          this.set_token(token.token)
+          // this.set_token(token.token)
           this.set_user(token.user)
         } else {
-          this.set_token(token)
+          // this.set_token(token)
           await this.refresh_user()
         }
         await this.refresh_user_menus()
