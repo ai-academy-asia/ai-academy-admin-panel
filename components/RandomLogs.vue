@@ -180,7 +180,7 @@ export default {
       }
     },
     async getList () {
-      const { data: { list, count } } = await this.$axios.get('cons/reg/random/logs', { params: { offset: this.list.length, pageSize: '20', search: this.search } })
+      const { data: { list, count } } = await this.$axios.get('cons/reg/random/logs', { params: { offset: this.list.length, pageSize: '20', search: JSON.stringify(this.search) } })
       this.list = [...this.list, ...list]
       this.count = count
     }
