@@ -69,7 +69,9 @@ export default {
       if (this.tokenName) {
         params.push(`tn=${this.tokenName}`)
       }
-      params.push('props=google,linkedin')
+      if (this.loginProps) {
+        params.push(`props=${this.loginProps}`)
+      }
       return `${this.env.authUrl}/login?` + params.join('&')
     }
   },
