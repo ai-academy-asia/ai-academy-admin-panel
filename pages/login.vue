@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     ...mapGetters('settings', ['env']),
-    ...mapGetters('user', ['tokenName', 'authType']),
+    ...mapGetters('user', ['tokenName', 'authType', 'loginProps']),
     loginUrl () {
       const params = [`p=${this.env.projectId}`, `type=${this.env.authTable}`]
       if (this.requestId) {
