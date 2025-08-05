@@ -1,11 +1,11 @@
 module.exports = {
   content: [
-    './../core-components/comps/**/*.vue',
     './components/**/*.{js,vue,ts}',
     './layouts/**/*.vue',
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
-    './nuxt.config.{js,ts}'
+    './nuxt.config.{js,ts}',
+    './node_modules/eztech-core-components/comps/**/*.{vue,js}'
   ],
   theme: {
     extend: {

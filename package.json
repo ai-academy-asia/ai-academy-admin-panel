@@ -19,6 +19,7 @@
     "cookie-universal-nuxt": "^2.2.2",
     "core-js": "^3.25.3",
     "element-ui": "^2.15.14",
+    "eztech-core-components": "^1.0.10",
     "hls.js": "^1.5.17",
     "nuxt": "^2.17.3",
     "socket.io-client": "^4.7.5",
@@ -35,6 +36,9 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@nuxtjs/eslint-config": "^11.0.0",
     "@nuxtjs/eslint-module": "^3.1.0",
     "@nuxtjs/moment": "^1.6.1",

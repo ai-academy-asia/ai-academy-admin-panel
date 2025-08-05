@@ -72,8 +72,8 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from '@/../core-components/utils/table-helper'
-import { getButtons } from '@/../core-components/utils/role-helper'
+import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from 'eztech-core-components/utils/table-helper'
+import { getButtons } from 'eztech-core-components/utils/role-helper'
 export default {
   name: 'PageProfile',
   asyncData ({ params, $axios }) {

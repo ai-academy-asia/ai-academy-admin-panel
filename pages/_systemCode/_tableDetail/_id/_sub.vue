@@ -54,7 +54,7 @@
   </div>
 </template>
 <script>
-import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from '@/../core-components/utils/table-helper'
+import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from 'eztech-core-components/utils/table-helper'
 export default {
   name: 'PageSubTable',
   asyncData ({ params, $axios }) {

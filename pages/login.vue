@@ -34,8 +34,8 @@
 import { mapGetters, mapActions } from 'vuex'
 // import { io } from 'socket.io-client'
 import { has } from 'lodash'
-import { uuidv4 } from '@/../core-components/utils/helpers'
-import middleware from '@/../core-components/middleware/login'
+import { uuidv4 } from 'eztech-core-components/utils/helpers'
+import middleware from 'eztech-core-components/middleware/login'
 export default {
   name: 'PageLogin',
   layout: 'empty',
@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     ...mapGetters('settings', ['env']),
-    ...mapGetters('user', ['tokenName']),
+    ...mapGetters('user', ['tokenName', 'authType']),
     loginUrl () {
       const params = [`p=${this.env.projectId}`, `type=${this.env.authTable}`]
       if (this.requestId) {
@@ -71,6 +71,9 @@ export default {
       }
       if (this.loginProps) {
         params.push(`props=${this.loginProps}`)
+      }
+      if (this.authType === 'header') {
+        params.push('at=header')
       }
       return `${this.env.authUrl}/login?` + params.join('&')
     }
@@ -113,10 +116,14 @@ export default {
         this.isLogged = true
         this.token = token
         if (has(token, 'token') && has(token, 'user')) {
-          // this.set_token(token.token)
+          if (this.authType === 'header') {
+            this.set_token(token.token)
+          }
           this.set_user(token.user)
         } else {
-          // this.set_token(token)
+          if (this.authType === 'header') {
+            this.set_token(token)
+          }
           await this.refresh_user()
         }
         await this.refresh_user_menus()

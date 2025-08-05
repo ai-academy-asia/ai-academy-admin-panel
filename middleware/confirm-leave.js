@@ -1,2 +1,2 @@
-import confirmLeave from '@/../core-components/middleware/confirm-leave'
+import confirmLeave from 'eztech-core-components/middleware/confirm-leave'
 export default confirmLeave

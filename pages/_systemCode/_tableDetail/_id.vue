@@ -111,8 +111,8 @@
   </div>
 </template>
 <script>
-import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from '@/../core-components/utils/table-helper'
-import { getButtons } from '@/../core-components/utils/role-helper'
+import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from 'eztech-core-components/utils/table-helper'
+import { getButtons } from 'eztech-core-components/utils/role-helper'
 const serviceName = (tableName) => {
   let serviceName = tableName
   if (serviceName.startsWith('service_users')) {

@@ -265,7 +265,7 @@
 <script>
 import { get } from 'lodash'
 import { mapGetters, mapActions } from 'vuex'
-import middleware from '@/../core-components/middleware/auth'
+import middleware from 'eztech-core-components/middleware/auth'
 export default {
   name: 'LayoutDefault',
   middleware,

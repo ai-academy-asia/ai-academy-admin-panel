@@ -1,1 +1,1 @@
-export { getters, actions, mutations, state } from '@/../core-components/store/user'
+export { getters, actions, mutations, state } from 'eztech-core-components/store/user'

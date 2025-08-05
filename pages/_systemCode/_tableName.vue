@@ -99,7 +99,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from '@/../core-components/utils/table-helper'
+import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from 'eztech-core-components/utils/table-helper'
 export default {
   name: 'PageTable',
   asyncData ({ params, $axios }) {

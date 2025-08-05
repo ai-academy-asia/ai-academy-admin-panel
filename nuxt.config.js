@@ -1,11 +1,11 @@
 import { join } from 'path'
 import serveStatic from 'serve-static'
-import { getDefaultConfig } from '../core-components/utils/default-nuxt-config'
+import { getDefaultConfig } from 'eztech-core-components/utils/default-nuxt-config'
 const defaultConfig = getDefaultConfig()
 export default {
   ...defaultConfig,
   serverMiddleware: [
-    { path: '/ckeditor', handler: serveStatic(join(__dirname, '../core-components/ckeditor')) }
+    { path: '/ckeditor', handler: serveStatic(join(__dirname, 'node_modules/eztech-core-components/ckeditor')) }
   ],
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -30,22 +30,23 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    '@/../core-components/assets/css/index.css',
+    'eztech-core-components/assets/css/index.css',
     '@/assets/css/index.css',
     '@/assets/css/stylesheet.css'
   ],
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
-    { path: '~/../core-components/comps', extensions: ['vue'], level: 0 },
     { path: '~/components', extensions: ['vue'], level: 1 }
   ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/../core-components/plugins/element-ui',
-    '@/../core-components/plugins/global-methods',
-    '@/../core-components/plugins/axios',
-    { src: '@/../core-components/plugins/dialog-draggable', mode: 'client' },
-    { src: '@/../core-components/plugins/ckeditor.js', mode: 'client' }
+   '~/plugins/eztech-core-components',
+    '@/plugins/element-ui',
+    '@/plugins/global-methods',
+    { src: '@/plugins/dialog-draggable', mode: 'client' },
+    { src: '~/plugins/ckeditor', mode: 'client' },
+    'node_modules/eztech-core-components/plugins/axios',
+    { src: 'node_modules/eztech-core-components/plugins/chart.js' }
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [

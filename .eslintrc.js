@@ -1,4 +1,4 @@
-const rules = require('../core-components/utils/eslint-rules')
+const rules = require('eztech-core-components/utils/eslint-rules')
 module.exports = {
   root: true,
   env: {

@@ -227,7 +227,16 @@ export default {
           this.sumWatchingTime = this.videoLog?.total_watching_time || 0
         }
         this.videoLog = {
-          video_id: this.id, course_id: this.course_id, topic_id: this.topic_id, lesson_id: this.lesson_id, video_current_time: 0, video_watching_time: 0, times: 1, total_watching_time: 0, video_ended: false, video_duration: 0,
+          video_id: this.id,
+          course_id: this.course_id,
+          topic_id: this.topic_id,
+          lesson_id: this.lesson_id,
+          video_current_time: 0,
+          video_watching_time: 0,
+          times: 1,
+          total_watching_time: 0,
+          video_ended: false,
+          video_duration: 0,
           ...this.videoLog
         }
         if (this.player.duration()) {
