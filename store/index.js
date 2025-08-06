@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { get } from 'lodash'
 const defaultMenu = { group_id: '11', group_name: '/', group_title: 'Хянах', group_icon: 'isax isax-home-2', apis: [{ api_id: '50', api_name: '', api_title: 'Хянах', api_icon: '' }] }
 export const state = () => ({
@@ -57,7 +56,7 @@ export const actions = {
       const visibleOrg = this.$cookies.get('SET_VISIBLE_ORG', { path: '/' })
       commit('SET_VISIBLE_ORG', visibleOrg !== 'HIDDEN')
     } catch (err) {
-      Vue.prototype.$log('nuxtServerInit', err)
+      console.error('nuxtServerInit', err)
       // const status = get(err, 'response.status')
       // if (status === 401) {
       //   redirect({ name: 'login' })

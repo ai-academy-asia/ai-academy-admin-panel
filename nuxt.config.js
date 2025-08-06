@@ -45,6 +45,7 @@ export default {
     '@/plugins/global-methods',
     { src: '@/plugins/dialog-draggable', mode: 'client' },
     { src: '~/plugins/ckeditor', mode: 'client' },
+    'node_modules/eztech-core-components/plugins/global-prototype',
     'node_modules/eztech-core-components/plugins/axios',
     { src: 'node_modules/eztech-core-components/plugins/chart.js' }
   ],
