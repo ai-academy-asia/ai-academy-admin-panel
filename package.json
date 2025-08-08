@@ -19,7 +19,7 @@
     "cookie-universal-nuxt": "^2.2.2",
     "core-js": "^3.25.3",
     "element-ui": "^2.15.14",
-    "eztech-core-components": "^1.0.10",
+    "eztech-core-components": "^1.0.12",
     "hls.js": "^1.5.17",
     "nuxt": "^2.17.3",
     "socket.io-client": "^4.7.5",

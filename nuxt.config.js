@@ -40,11 +40,11 @@ export default {
   ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-   '~/plugins/eztech-core-components',
+    '@/plugins/eztech-core-components',
     '@/plugins/element-ui',
     '@/plugins/global-methods',
     { src: '@/plugins/dialog-draggable', mode: 'client' },
-    { src: '~/plugins/ckeditor', mode: 'client' },
+    { src: '@/plugins/ckeditor', mode: 'client' },
     'node_modules/eztech-core-components/plugins/global-prototype',
     'node_modules/eztech-core-components/plugins/axios',
     { src: 'node_modules/eztech-core-components/plugins/chart.js' }
