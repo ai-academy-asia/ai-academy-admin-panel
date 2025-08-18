@@ -92,7 +92,7 @@ export default {
     const { data: { count: countCourses } } = await $axios.get('count/9/service_acourses')
     const { data: { count: countStudents } } = await $axios.get('count/9/service_astudents')
     const { data: { count: countVideos } } = await $axios.get('count/9/service_ref_videos')
-    const { data: { count: countViews } } = await $axios.get('count/9/student_course_logs')
+    const { data: { count: countViews } } = await $axios.get('count/9/service_student_course_logs')
     const counts = {
       countCourses,
       countStudents,
