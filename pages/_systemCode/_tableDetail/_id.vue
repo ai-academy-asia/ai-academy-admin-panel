@@ -21,6 +21,7 @@
       :searching="formSearching"
       :level="level"
       :locales="locales"
+      :service-name="tableName"
       @temp-change="handleTempChange"
       @form-search="handleFormSearch"
       @locale-change="handleLocaleChange"
