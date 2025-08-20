@@ -79,6 +79,7 @@
         :config_group_fields="config_group_fields"
         :config_form_menus="config_form_menus"
         :ref-columns="refColumns"
+        :service-name="tableName"
         @form-search="handleFormSearch"
         @temp-change="handleTempChange"
         @locale-change="handleLocaleChange"

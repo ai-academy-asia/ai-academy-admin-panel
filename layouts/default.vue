@@ -259,6 +259,7 @@
         </div>
       </main>
     </div>
+    <core-merge-confirm />
     <pdf-dialog />
   </div>
 </template>
