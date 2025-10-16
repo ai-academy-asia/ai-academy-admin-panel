@@ -77,7 +77,7 @@ import { getButtons } from 'eztech-core-components/utils/role-helper'
 export default {
   name: 'PageProfile',
   asyncData ({ params, $axios }) {
-    return getAsyncData({ $axios, projectId: 9, tableName: 'users' })
+    return getAsyncData({ $axios, projectId: '9', tableName: 'users' })
   },
   data () {
     return {
