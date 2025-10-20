@@ -32,7 +32,6 @@ export default {
   layout: 'empty',
   async asyncData ({ $axios, query, params }) {
     try {
-      console.log('fdsafds')
       if (!params.id) {
         return { errorVideo: 'Required id.' }
       }
@@ -59,12 +58,11 @@ export default {
           Authorization: `Bearer ${query.auth_token}`
         }
       }
-      const { data } = await $axios.get(`9/ref_videos/${params.id}`, options)
+      const { data } = await $axios.get(`9/service_ref_videos/${params.id}`, options)
       let errorVideo = null
       if (!data?._id) {
         errorVideo = query.lang === 'en' ? 'Not found video.' : 'Бичлэг олдсонгүй.'
       }
-      console.log('data', data)
       return { item: data, errorVideo }
     } catch (err) {
       const errorVideo = err.response?.data?.message || err.response?.message || err.message
