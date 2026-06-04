@@ -57,12 +57,10 @@ export const actions = {
       commit('SET_VISIBLE_ORG', visibleOrg !== 'HIDDEN')
     } catch (err) {
       console.error('nuxtServerInit', err)
-      // const status = get(err, 'response.status')
-      // if (status === 401) {
-      //   redirect({ name: 'login' })
-      // } else {
-      //   console.log('erorrr', get(err, 'response.data'))
-      // }
+      const status = err && err.response && err.response.status
+      if (status === 401 || status === 403) {
+        redirect({ name: 'login' })
+      }
     }
   },
   set_pdf_url ({ commit }, data) {
