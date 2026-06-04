@@ -2,16 +2,43 @@ import { join } from 'path'
 import serveStatic from 'serve-static'
 import { getDefaultConfig } from 'eztech-core-components/utils/default-nuxt-config'
 const defaultConfig = getDefaultConfig()
+const adminHeaders = require('./server-middleware/admin-headers')
 const ckeditorStatic = serveStatic(join(__dirname, 'node_modules/eztech-core-components/ckeditor'))
-const routerBase = (process.env.ROUTER_BASE || '/').replace(/\/$/, '')
+const routerBase = (process.env.ROUTER_BASE || '/manage/').replace(/\/$/, '')
 const ckeditorPaths = ['/ckeditor']
 if (routerBase && routerBase !== '') {
   ckeditorPaths.push(`${routerBase}/ckeditor`)
 }
+const adminCsp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
+  "connect-src 'self'",
+  "frame-ancestors 'none'"
+].join('; ')
 export default {
   ...defaultConfig,
+  env: {
+    ROUTER_BASE: process.env.ROUTER_BASE || '/manage/'
+  },
   buildDir: process.env.BUILD_DIR || 'distbuild',
-  serverMiddleware: ckeditorPaths.map(path => ({ path, handler: ckeditorStatic })),
+  serverMiddleware: [
+    adminHeaders,
+    ...ckeditorPaths.map(path => ({ path, handler: ckeditorStatic }))
+  ],
+  render: {
+    ...defaultConfig.render,
+    static: {
+      setHeaders (res) {
+        res.setHeader('X-XSS-Protection', '1; mode=block')
+        res.setHeader('Referrer-Policy', 'no-referrer')
+        res.setHeader('X-Frame-Options', 'DENY')
+        res.setHeader('Content-Security-Policy', adminCsp)
+      }
+    }
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s | AI Academy',

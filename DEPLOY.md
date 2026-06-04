@@ -21,6 +21,8 @@ NODE_ENV=production
 
 `postinstall` applies `patches/eztech-core-components+*.patch` (CKEditor CSS path + form edit permissions).
 
+**CKEditor images:** Do not paste Google Photos share links (`photos.app.goo.gl`) in the Image URL box — they are web pages, not image files. Use the editor **Upload** tab (`/api/file/upload/ckeditor`) or the form **Зураг** field. If CSP errors persist after deploy, check nginx is not overriding `Content-Security-Policy` on `/manage/*`.
+
 ```bash
 cd /var/www/wecode-admin
 git pull

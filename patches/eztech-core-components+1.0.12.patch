@@ -1,13 +1,36 @@
 diff --git a/node_modules/eztech-core-components/comps/CoreCkeditor.vue b/node_modules/eztech-core-components/comps/CoreCkeditor.vue
-index caf1166..ea7f541 100644
+index caf1166..46de66e 100644
 --- a/node_modules/eztech-core-components/comps/CoreCkeditor.vue
 +++ b/node_modules/eztech-core-components/comps/CoreCkeditor.vue
-@@ -179,7 +179,7 @@ export default {
+@@ -155,8 +155,21 @@ export default {
+       return '1.75'
+     },
+     ...mapGetters('settings', ['env']),
++    ckeditorBase () {
++      let base = this.env?.routerBase || ''
++      if (!base && typeof window !== 'undefined') {
++        const match = window.location.pathname.match(/^(\/[^/]+\/)/)
++        if (match && match[1].includes('manage')) {
++          base = match[1]
++        }
++      }
++      if (!base) {
++        base = '/'
++      }
++      return base.endsWith('/') ? base : `${base}/`
++    },
+     editorUrl () {
+-      return `${this.env.routerBase}/ckeditor/ckeditor.js`
++      return `${this.ckeditorBase}ckeditor/ckeditor.js`
+     },
+     editorConfig () {
+       const config = {
+@@ -179,7 +192,7 @@ export default {
            'sup', 's', 'u', 'blockquote', 'br', 'hr'
          ].join(' '),
          contentsCss: [
 -          '/ckeditor/ckcontent.css',
-+          `${this.env.routerBase || '/'}ckeditor/ckcontent.css`,
++          `${this.ckeditorBase}ckeditor/ckcontent.css`,
            'data:text/css;charset=utf-8,' +
            (this.isSimple
              ? encodeURIComponent(`
