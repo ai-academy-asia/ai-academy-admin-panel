@@ -90,7 +90,6 @@ const emptyCounts = () => ({
 
 export default {
   name: 'PageIndex',
-  ssr: false,
   data () {
     return {
       news: [],

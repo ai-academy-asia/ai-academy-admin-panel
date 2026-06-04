@@ -1,0 +1,23 @@
+{
+  "MenuItem": {
+    "description": "Auto imported from components/MenuItem.vue"
+  },
+  "PdfDialog": {
+    "description": "Auto imported from components/PdfDialog.vue"
+  },
+  "RandomLogs": {
+    "description": "Auto imported from components/RandomLogs.vue"
+  },
+  "SclCount": {
+    "description": "Auto imported from components/SclCount.vue"
+  },
+  "SclNews": {
+    "description": "Auto imported from components/SclNews.vue"
+  },
+  "SclVideo": {
+    "description": "Auto imported from components/SclVideo.vue"
+  },
+  "SystemName": {
+    "description": "Auto imported from components/SystemName.vue"
+  }
+}
