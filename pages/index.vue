@@ -81,28 +81,20 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
+const emptyCounts = () => ({
+  countCourses: 0,
+  countStudents: 0,
+  countVideos: 0,
+  countViews: 0
+})
+
 export default {
   name: 'PageIndex',
-  async asyncData ({ $axios }) {
-    try {
-      const { data: news } = await $axios.get('list/9/service_anews', {
-        params: {
-          extraFields: 'created_by.full_name,created_by.position_name,created_at,created_by.image'
-        }
-      })
-      const countCourses = await $axios.get('count/9/service_acourses').then(r => r.data.count).catch(() => 0)
-      const countStudents = await $axios.get('count/9/service_astudents').then(r => r.data.count).catch(() => 0)
-      const countVideos = await $axios.get('count/9/service_ref_videos').then(r => r.data.count).catch(() => 0)
-      const countViews = await $axios.get('count/9/service_student_course_logs').then(r => r.data.count).catch(() => 0)
-      const counts = { countCourses, countStudents, countVideos, countViews }
-      return { news, counts }
-    } catch (err) {
-      console.error('index asyncData error:', err)
-      return { news: [], counts: { countCourses: 0, countStudents: 0, countVideos: 0, countViews: 0 } }
-    }
-  },
   data () {
     return {
+      news: [],
+      counts: emptyCounts(),
+      dashboardLoading: false,
       mockItem: {
         icon: 'isax isax-menu-1',
         itemId: '1221',
@@ -119,8 +111,36 @@ export default {
     ...mapGetters('user', ['user', 'hideProfile']),
     ...mapGetters('settings', ['env'])
   },
+  mounted () {
+    this.loadDashboard()
+  },
   methods: {
-    ...mapActions('user', ['set_hide_profile'])
+    ...mapActions('user', ['set_hide_profile']),
+    async loadDashboard () {
+      if (this.dashboardLoading) {
+        return
+      }
+      this.dashboardLoading = true
+      try {
+        const { data: news } = await this.$axios.get('list/9/service_news', {
+          params: {
+            extraFields: 'created_by.full_name,created_by.position_name,created_at,created_by.image'
+          }
+        })
+        const [countCourses, countStudents, countVideos, countViews] = await Promise.all([
+          this.$axios.get('count/9/service_acourses').then(r => r.data.count).catch(() => 0),
+          this.$axios.get('count/9/service_astudents').then(r => r.data.count).catch(() => 0),
+          this.$axios.get('count/9/service_ref_videos').then(r => r.data.count).catch(() => 0),
+          this.$axios.get('count/9/service_student_course_logs').then(r => r.data.count).catch(() => 0)
+        ])
+        this.news = Array.isArray(news) ? news : []
+        this.counts = { countCourses, countStudents, countVideos, countViews }
+      } catch (err) {
+        console.error('index loadDashboard error:', err)
+      } finally {
+        this.dashboardLoading = false
+      }
+    }
   }
 }
 </script>

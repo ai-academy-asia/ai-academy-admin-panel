@@ -43,6 +43,7 @@ export default {
     '@/plugins/eztech-core-components',
     '@/plugins/element-ui',
     '@/plugins/global-methods',
+    '@/plugins/auth-hydrate.client',
     { src: '@/plugins/dialog-draggable', mode: 'client' },
     { src: '@/plugins/ckeditor', mode: 'client' },
     'node_modules/eztech-core-components/plugins/global-prototype',

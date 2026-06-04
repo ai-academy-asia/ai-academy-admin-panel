@@ -48,20 +48,31 @@ export const actions = {
   async nuxtServerInit ({ dispatch, commit }, { $cookies, query, redirect, route }) {
     try {
       await dispatch('settings/init', { $cookies, query, redirect })
-      if (route.name === 'video') {
+    } catch (err) {
+      console.error('nuxtServerInit settings', err)
+    }
+    if (route.name === 'video') {
+      return
+    }
+    try {
+      await dispatch('user/init', { $cookies, query, redirect })
+    } catch (err) {
+      console.error('nuxtServerInit user', err)
+      const status = err && err.response && err.response.status
+      if (process.client && (status === 401 || status === 403)) {
+        redirect({ name: 'login' })
         return
       }
-      await dispatch('user/init', { $cookies, query, redirect })
+    }
+    try {
       await dispatch('refresh_user_menus')
+    } catch (err) {
+      console.error('nuxtServerInit menus', err)
+    }
+    try {
       const visibleOrg = this.$cookies.get('SET_VISIBLE_ORG', { path: '/' })
       commit('SET_VISIBLE_ORG', visibleOrg !== 'HIDDEN')
-    } catch (err) {
-      console.error('nuxtServerInit', err)
-      const status = err && err.response && err.response.status
-      if (status === 401 || status === 403) {
-        redirect({ name: 'login' })
-      }
-    }
+    } catch (_) {}
   },
   set_pdf_url ({ commit }, data) {
     commit('SET_PDF_URL', data)
@@ -74,7 +85,11 @@ export const actions = {
     if (!getters['user/user']) {
       return
     }
-    const { data } = await this.$axios.get('config/user/menus')
-    commit('SET_USER_MENUS', data)
+    try {
+      const { data } = await this.$axios.get('config/user/menus')
+      commit('SET_USER_MENUS', data)
+    } catch (err) {
+      console.error('refresh_user_menus', err)
+    }
   }
 }
