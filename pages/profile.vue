@@ -72,12 +72,13 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from 'eztech-core-components/utils/table-helper'
+import { tableData, tableMethods, tableComputed, tableWatch } from 'eztech-core-components/utils/table-helper'
+import { safeGetAsyncData } from '~/utils/safe-get-async-data'
 import { getButtons } from 'eztech-core-components/utils/role-helper'
 export default {
   name: 'PageProfile',
-  asyncData ({ params, $axios }) {
-    return getAsyncData({ $axios, projectId: '9', tableName: 'users' })
+  asyncData ({ $axios, error }) {
+    return safeGetAsyncData({ $axios, error, projectId: '9', tableName: 'users' })
   },
   data () {
     return {
@@ -95,7 +96,7 @@ export default {
     ...tableComputed,
     id: {
       get () {
-        return this.user._id
+        return this.user?._id
       },
       set (val) {
         this.$log('profile set id', val)

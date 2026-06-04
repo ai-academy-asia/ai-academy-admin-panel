@@ -54,15 +54,17 @@
   </div>
 </template>
 <script>
-import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from 'eztech-core-components/utils/table-helper'
+import { tableData, tableMethods, tableComputed, tableWatch } from 'eztech-core-components/utils/table-helper'
+import { safeGetAsyncData } from '~/utils/safe-get-async-data'
 export default {
   name: 'PageSubTable',
-  asyncData ({ params, $axios }) {
+  asyncData ({ params, $axios, error }) {
     if (!params.sub) {
       return {}
     }
-    return getAsyncData({
+    return safeGetAsyncData({
       $axios,
+      error,
       projectId: 9,
       tableName: params.tableDetail,
       id: params.id,

@@ -55,9 +55,18 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
-  async asyncData ({ $axios }) {
-    const { data: list } = await $axios.get('list/8/conscourt_handbooks')
-    return { list }
+  async asyncData ({ $axios, error }) {
+    try {
+      const { data: list } = await $axios.get('list/8/conscourt_handbooks')
+      return { list }
+    } catch (err) {
+      console.error('handbooks asyncData', err?.response?.status || err?.message || err)
+      if (process.server) {
+        const status = err?.response?.status
+        error({ statusCode: status === 401 || status === 403 ? 401 : (status || 500), message: 'Гарын авлага ачаалахад алдаа гарлаа' })
+      }
+      return { list: [] }
+    }
   },
   data () {
     return {

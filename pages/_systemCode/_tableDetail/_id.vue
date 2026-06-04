@@ -112,7 +112,8 @@
   </div>
 </template>
 <script>
-import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from 'eztech-core-components/utils/table-helper'
+import { tableData, tableMethods, tableComputed, tableWatch } from 'eztech-core-components/utils/table-helper'
+import { safeGetAsyncData } from '~/utils/safe-get-async-data'
 import { getButtons } from 'eztech-core-components/utils/role-helper'
 const serviceName = (tableName) => {
   let serviceName = tableName
@@ -123,8 +124,8 @@ const serviceName = (tableName) => {
 }
 export default {
   name: 'PageDetail',
-  asyncData ({ params, $axios }) {
-    return getAsyncData({ $axios, projectId: 9, tableName: serviceName(params.tableDetail) })
+  asyncData ({ params, $axios, error }) {
+    return safeGetAsyncData({ $axios, error, projectId: 9, tableName: serviceName(params.tableDetail) })
   },
   data () {
     return {

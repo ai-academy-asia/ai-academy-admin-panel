@@ -44,9 +44,18 @@ import { mapActions } from 'vuex'
 import { get } from 'lodash'
 export default {
   name: 'PageReferences',
-  async asyncData ({ $axios, params }) {
-    const { data } = await $axios.get('config/tables/refs/9', { params: { ...params } })
-    return { tables: data.map(({ name, title, project_id, description }) => { return { name, title, project_id, description } }) }
+  async asyncData ({ $axios, params, error }) {
+    try {
+      const { data } = await $axios.get('config/tables/refs/9', { params: { ...params } })
+      return { tables: data.map(({ name, title, project_id, description }) => { return { name, title, project_id, description } }) }
+    } catch (err) {
+      console.error('references asyncData', err?.response?.status || err?.message || err)
+      if (process.server) {
+        const status = err?.response?.status
+        error({ statusCode: status === 401 || status === 403 ? 401 : (status || 500), message: 'Лавлах ачаалахад алдаа гарлаа' })
+      }
+      return { tables: [] }
+    }
   },
   data () {
     return {

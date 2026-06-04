@@ -10,11 +10,13 @@ function hasSessionCookie (ctx) {
   return raw.includes(`${tokenName}=`) || raw.includes(`${tokenName}_REFRESH=`)
 }
 
-export default (ctx) => {
+export default async (ctx) => {
   const { store, route } = ctx
-  if (process.server && !store.getters['user/user']) {
-    if (hasSessionCookie(ctx) && route.name !== 'login') {
-      return
+  if (process.server && !store.getters['user/user'] && hasSessionCookie(ctx) && route.name !== 'login') {
+    try {
+      await store.dispatch('user/refresh_user')
+    } catch (err) {
+      console.error('auth middleware refresh_user', err?.response?.status || err?.message || err)
     }
   }
   return auth(ctx)

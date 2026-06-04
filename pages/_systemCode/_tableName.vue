@@ -100,11 +100,13 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { tableData, tableMethods, tableComputed, tableWatch, getAsyncData } from 'eztech-core-components/utils/table-helper'
+import { tableData, tableMethods, tableComputed, tableWatch } from 'eztech-core-components/utils/table-helper'
+import { safeGetAsyncData } from '~/utils/safe-get-async-data'
 export default {
   name: 'PageTable',
-  asyncData ({ params, $axios }) {
-    return getAsyncData({ $axios, projectId: '9', tableName: params.tableName })
+  asyncData (ctx) {
+    const { params, $axios, error } = ctx
+    return safeGetAsyncData({ $axios, error, projectId: '9', tableName: params.tableName })
   },
   data () {
     return {
