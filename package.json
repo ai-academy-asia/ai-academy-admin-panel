@@ -6,7 +6,7 @@
     "dev": "nuxt",
     "dev-local": "cross-env NODE_OPTIONS=--max-old-space-size=8192 BASE_URL=http://localhost:8000 AUTH_URL=http://localhost:3004 nuxt",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 BUILD_DIR=distbuild NODE_ENV=production nuxt build",
-    "start": "nuxt start",
+    "start": "cross-env BUILD_DIR=distbuild NODE_ENV=production nuxt start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js",

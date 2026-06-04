@@ -58,11 +58,9 @@ export const actions = {
       await dispatch('user/init', { $cookies, query, redirect })
     } catch (err) {
       console.error('nuxtServerInit user', err)
-      const status = err && err.response && err.response.status
-      if (status === 401 || status === 403) {
-        redirect({ name: 'login' })
-        return
-      }
+    }
+    if (process.server) {
+      return
     }
     try {
       await dispatch('refresh_user_menus')

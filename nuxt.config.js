@@ -3,9 +3,8 @@ import serveStatic from 'serve-static'
 import { getDefaultConfig } from 'eztech-core-components/utils/default-nuxt-config'
 const defaultConfig = getDefaultConfig()
 export default {
-  // Admin is behind login; SPA avoids SSR 500 when session cookies are present on GET /manage/
-  ssr: false,
   ...defaultConfig,
+  buildDir: process.env.BUILD_DIR || 'distbuild',
   serverMiddleware: [
     { path: '/ckeditor', handler: serveStatic(join(__dirname, 'node_modules/eztech-core-components/ckeditor')) }
   ],

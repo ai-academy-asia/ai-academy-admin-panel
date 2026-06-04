@@ -32,6 +32,9 @@ export const actions = {
   ...coreActions,
   async init (ctx, payload) {
     applyInitState({ ...ctx, ...payload })
+    if (process.server) {
+      return
+    }
     await coreActions.refresh_user.call(this, ctx)
   },
   async refresh_user (ctx) {

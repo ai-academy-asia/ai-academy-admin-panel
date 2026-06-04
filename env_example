@@ -1,5 +1,6 @@
-BUILD_DIR=dist
-ROUTER_BASE=/course/
+# Nuxt build output folder (must match npm run build / pm2 BUILD_DIR). Do NOT use "dist" — conflicts with static output.
+BUILD_DIR=distbuild
+ROUTER_BASE=/manage/
 HOST=0.0.0.0
 PORT=8004
 BASE_URL=/api
