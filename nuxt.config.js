@@ -47,7 +47,7 @@ export default {
     { src: '@/plugins/dialog-draggable', mode: 'client' },
     { src: '@/plugins/ckeditor', mode: 'client' },
     'node_modules/eztech-core-components/plugins/global-prototype',
-    'node_modules/eztech-core-components/plugins/axios',
+    '@/plugins/axios',
     { src: 'node_modules/eztech-core-components/plugins/chart.js' }
   ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules

@@ -1,14 +1,18 @@
-export default async ({ store }) => {
-  if (store.getters['user/user']) {
-    if (!store.getters.user_menus?.length) {
-      try {
-        await store.dispatch('refresh_user_menus')
-      } catch (_) {}
-    }
-    return
-  }
+export default async ({ store, app, route }) => {
   try {
-    await store.dispatch('user/refresh_user')
-    await store.dispatch('refresh_user_menus')
-  } catch (_) {}
+    if (!store.getters['user/tokenName']) {
+      await store.dispatch('user/init', {
+        $cookies: app.$cookies,
+        query: route?.query || {},
+        redirect: () => {}
+      })
+    } else if (!store.getters['user/user']) {
+      await store.dispatch('user/refresh_user')
+    }
+    if (store.getters['user/user'] && !store.state.user_menus?.length) {
+      await store.dispatch('refresh_user_menus')
+    }
+  } catch (err) {
+    console.error('auth-hydrate', err)
+  }
 }

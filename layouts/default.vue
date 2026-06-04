@@ -108,7 +108,7 @@
             </div>
           </div>
           <nuxt-link
-            v-else
+            v-else-if="item.apis && item.apis[0]"
             :key="item.group_name"
             :to="`${item.group_name}${item.apis[0].api_name ? '/' + item.apis[0].api_name : ''}`"
           >

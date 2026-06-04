@@ -54,12 +54,20 @@ export const actions = {
     if (route.name === 'video') {
       return
     }
+    if (process.server) {
+      try {
+        await dispatch('user/init', { $cookies, query, redirect })
+      } catch (err) {
+        console.error('nuxtServerInit user state', err)
+      }
+      return
+    }
     try {
       await dispatch('user/init', { $cookies, query, redirect })
     } catch (err) {
       console.error('nuxtServerInit user', err)
       const status = err && err.response && err.response.status
-      if (process.client && (status === 401 || status === 403)) {
+      if (status === 401 || status === 403) {
         redirect({ name: 'login' })
         return
       }
