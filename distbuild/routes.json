@@ -2,73 +2,73 @@
   {
     "name": "changePassword",
     "path": "/changePassword",
-    "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/changePassword.vue",
+    "component": "/var/www/wecode-admin/pages/changePassword.vue",
     "chunkName": "pages/changePassword",
-    "_name": "_3c093f42"
+    "_name": "_28d839f2"
   },
   {
     "name": "handbooks",
     "path": "/handbooks",
-    "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/handbooks.vue",
+    "component": "/var/www/wecode-admin/pages/handbooks.vue",
     "chunkName": "pages/handbooks",
-    "_name": "_9a316b52"
+    "_name": "_043c82a2"
   },
   {
     "name": "login",
     "path": "/login",
-    "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/login.vue",
+    "component": "/var/www/wecode-admin/pages/login.vue",
     "chunkName": "pages/login",
-    "_name": "_8f7a75b6"
+    "_name": "_2e95257d"
   },
   {
     "name": "profile",
     "path": "/profile",
-    "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/profile.vue",
+    "component": "/var/www/wecode-admin/pages/profile.vue",
     "chunkName": "pages/profile",
-    "_name": "_a45a3336"
+    "_name": "_4de2de86"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/index.vue",
+    "component": "/var/www/wecode-admin/pages/index.vue",
     "chunkName": "pages/index",
-    "_name": "_22c9bbe4"
+    "_name": "_64ed8266"
   },
   {
     "name": "video-id",
     "path": "/video/:id?",
-    "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/video/_id.vue",
+    "component": "/var/www/wecode-admin/pages/video/_id.vue",
     "chunkName": "pages/video/_id",
-    "_name": "_5b86eb62"
+    "_name": "_b2fd408c"
   },
   {
     "name": "systemCode-references",
     "path": "/:systemCode/references",
-    "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/_systemCode/references.vue",
+    "component": "/var/www/wecode-admin/pages/_systemCode/references.vue",
     "chunkName": "pages/_systemCode/references",
-    "_name": "_bf0307a0"
+    "_name": "_c1445250"
   },
   {
     "name": "systemCode-tableName",
     "path": "/:systemCode/:tableName?",
-    "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/_systemCode/_tableName.vue",
+    "component": "/var/www/wecode-admin/pages/_systemCode/_tableName.vue",
     "chunkName": "pages/_systemCode/_tableName",
-    "_name": "_427352bc"
+    "_name": "_44b49d6c"
   },
   {
     "name": "systemCode-tableDetail-id",
     "path": "/:systemCode/:tableDetail?/:id?",
-    "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/_systemCode/_tableDetail/_id.vue",
+    "component": "/var/www/wecode-admin/pages/_systemCode/_tableDetail/_id.vue",
     "chunkName": "pages/_systemCode/_tableDetail/_id",
     "children": [
       {
         "name": "systemCode-tableDetail-id-sub",
         "path": ":sub?",
-        "component": "/Users/z/Documents/web/wecdoe-admin/wecode-admin/pages/_systemCode/_tableDetail/_id/_sub.vue",
+        "component": "/var/www/wecode-admin/pages/_systemCode/_tableDetail/_id/_sub.vue",
         "chunkName": "pages/_systemCode/_tableDetail/_id/_sub",
-        "_name": "_42f29e26"
+        "_name": "_a200c576"
       }
     ],
-    "_name": "_63981753"
+    "_name": "_2722d3fb"
   }
 ]

@@ -4,16 +4,16 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _3c093f42 = () => interopDefault(import('../pages/changePassword.vue' /* webpackChunkName: "pages/changePassword" */))
-const _9a316b52 = () => interopDefault(import('../pages/handbooks.vue' /* webpackChunkName: "pages/handbooks" */))
-const _8f7a75b6 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
-const _a45a3336 = () => interopDefault(import('../pages/profile.vue' /* webpackChunkName: "pages/profile" */))
-const _22c9bbe4 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
-const _5b86eb62 = () => interopDefault(import('../pages/video/_id.vue' /* webpackChunkName: "pages/video/_id" */))
-const _bf0307a0 = () => interopDefault(import('../pages/_systemCode/references.vue' /* webpackChunkName: "pages/_systemCode/references" */))
-const _427352bc = () => interopDefault(import('../pages/_systemCode/_tableName.vue' /* webpackChunkName: "pages/_systemCode/_tableName" */))
-const _63981753 = () => interopDefault(import('../pages/_systemCode/_tableDetail/_id.vue' /* webpackChunkName: "pages/_systemCode/_tableDetail/_id" */))
-const _42f29e26 = () => interopDefault(import('../pages/_systemCode/_tableDetail/_id/_sub.vue' /* webpackChunkName: "pages/_systemCode/_tableDetail/_id/_sub" */))
+const _28d839f2 = () => interopDefault(import('../pages/changePassword.vue' /* webpackChunkName: "pages/changePassword" */))
+const _043c82a2 = () => interopDefault(import('../pages/handbooks.vue' /* webpackChunkName: "pages/handbooks" */))
+const _2e95257d = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
+const _4de2de86 = () => interopDefault(import('../pages/profile.vue' /* webpackChunkName: "pages/profile" */))
+const _64ed8266 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _b2fd408c = () => interopDefault(import('../pages/video/_id.vue' /* webpackChunkName: "pages/video/_id" */))
+const _c1445250 = () => interopDefault(import('../pages/_systemCode/references.vue' /* webpackChunkName: "pages/_systemCode/references" */))
+const _44b49d6c = () => interopDefault(import('../pages/_systemCode/_tableName.vue' /* webpackChunkName: "pages/_systemCode/_tableName" */))
+const _2722d3fb = () => interopDefault(import('../pages/_systemCode/_tableDetail/_id.vue' /* webpackChunkName: "pages/_systemCode/_tableDetail/_id" */))
+const _a200c576 = () => interopDefault(import('../pages/_systemCode/_tableDetail/_id/_sub.vue' /* webpackChunkName: "pages/_systemCode/_tableDetail/_id/_sub" */))
 
 const emptyFn = () => {}
 
@@ -21,50 +21,50 @@ Vue.use(Router)
 
 export const routerOptions = {
   mode: 'history',
-  base: '/',
+  base: '/manage/',
   linkActiveClass: 'nuxt-link-active',
   linkExactActiveClass: 'nuxt-link-exact-active',
   scrollBehavior,
 
   routes: [{
     path: "/changePassword",
-    component: _3c093f42,
+    component: _28d839f2,
     name: "changePassword"
   }, {
     path: "/handbooks",
-    component: _9a316b52,
+    component: _043c82a2,
     name: "handbooks"
   }, {
     path: "/login",
-    component: _8f7a75b6,
+    component: _2e95257d,
     name: "login"
   }, {
     path: "/profile",
-    component: _a45a3336,
+    component: _4de2de86,
     name: "profile"
   }, {
     path: "/",
-    component: _22c9bbe4,
+    component: _64ed8266,
     name: "index"
   }, {
     path: "/video/:id?",
-    component: _5b86eb62,
+    component: _b2fd408c,
     name: "video-id"
   }, {
     path: "/:systemCode/references",
-    component: _bf0307a0,
+    component: _c1445250,
     name: "systemCode-references"
   }, {
     path: "/:systemCode/:tableName?",
-    component: _427352bc,
+    component: _44b49d6c,
     name: "systemCode-tableName"
   }, {
     path: "/:systemCode/:tableDetail?/:id?",
-    component: _63981753,
+    component: _2722d3fb,
     name: "systemCode-tableDetail-id",
     children: [{
       path: ":sub?",
-      component: _42f29e26,
+      component: _a200c576,
       name: "systemCode-tableDetail-id-sub"
     }]
   }],
