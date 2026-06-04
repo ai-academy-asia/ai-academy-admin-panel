@@ -12,10 +12,8 @@ function hasSessionCookie (ctx) {
 
 export default (ctx) => {
   const { store, route } = ctx
-  if (process.server && !store.getters['user/user']) {
-    if (hasSessionCookie(ctx) && route.name !== 'login') {
-      return
-    }
+  if (process.server) {
+    return
   }
   return auth(ctx)
 }
