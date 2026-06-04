@@ -1,8 +1,21 @@
+diff --git a/node_modules/eztech-core-components/ckeditor/plugins/simage/plugin.js b/node_modules/eztech-core-components/ckeditor/plugins/simage/plugin.js
+index 91be4df..b34d9c8 100644
+--- a/node_modules/eztech-core-components/ckeditor/plugins/simage/plugin.js
++++ b/node_modules/eztech-core-components/ckeditor/plugins/simage/plugin.js
+@@ -64,7 +64,7 @@ CKEDITOR.plugins.add( 'simage', {
+ 					}
+ 					img.src = window.URL.createObjectURL(file)
+ 					formData = new FormData;
+-					formData.append('file', file);
++					formData.append('upload', file);
+ 					loaderElem = new CKEDITOR.dom.element('loader-elem')
+ 					loaderHtmlStr = '<div style="position: relative; z-index: 100;width: 100%;height: 100%;text-align: center;background: white;opacity: 0.75;pointer-events:none">' + '<div style="width: 100%;height: 30px;margin-top: 100px;">Please wait while image is uploading...</div>' + '</div>'
+ 					loaderDomEle = CKEDITOR.dom.element.createFromHtml(loaderHtmlStr)
 diff --git a/node_modules/eztech-core-components/comps/CoreCkeditor.vue b/node_modules/eztech-core-components/comps/CoreCkeditor.vue
-index caf1166..46de66e 100644
+index caf1166..14a1600 100644
 --- a/node_modules/eztech-core-components/comps/CoreCkeditor.vue
 +++ b/node_modules/eztech-core-components/comps/CoreCkeditor.vue
-@@ -155,8 +155,21 @@ export default {
+@@ -155,8 +155,28 @@ export default {
        return '1.75'
      },
      ...mapGetters('settings', ['env']),
@@ -22,10 +35,17 @@ index caf1166..46de66e 100644
      editorUrl () {
 -      return `${this.env.routerBase}/ckeditor/ckeditor.js`
 +      return `${this.ckeditorBase}ckeditor/ckeditor.js`
++    },
++    ckeditorUploadUrl () {
++      const path = '/api/file/upload/ckeditor?upload=1'
++      if (typeof window !== 'undefined' && window.location?.origin) {
++        return `${window.location.origin}${path}`
++      }
++      return path
      },
      editorConfig () {
        const config = {
-@@ -179,7 +192,7 @@ export default {
+@@ -179,7 +199,7 @@ export default {
            'sup', 's', 'u', 'blockquote', 'br', 'hr'
          ].join(' '),
          contentsCss: [
@@ -34,6 +54,22 @@ index caf1166..46de66e 100644
            'data:text/css;charset=utf-8,' +
            (this.isSimple
              ? encodeURIComponent(`
+@@ -256,9 +276,12 @@ export default {
+         },
+         coreStyles_bold: { element: 'b', overrides: 'strong' },
+         toolbar: [],
+-        imageUploadURL: '/api/file/upload/ckeditor?upload=1',
+-        filebrowserUploadUrl: '/api/file/upload/ckeditor?upload=1',
+-        filebrowserUploadMethod: 'form'
++        imageUploadURL: this.ckeditorUploadUrl,
++        uploadUrl: this.ckeditorUploadUrl,
++        filebrowserUploadUrl: this.ckeditorUploadUrl,
++        filebrowserImageUploadUrl: this.ckeditorUploadUrl,
++        filebrowserUploadMethod: 'xhr',
++        dataParser: (data) => (typeof data === 'string' ? JSON.parse(data) : data).url
+       }
+       if (this.isSimple) {
+         config.toolbar = [
 diff --git a/node_modules/eztech-core-components/utils/table-helper.js b/node_modules/eztech-core-components/utils/table-helper.js
 index 974cc75..37e33cc 100644
 --- a/node_modules/eztech-core-components/utils/table-helper.js

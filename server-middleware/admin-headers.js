@@ -15,6 +15,8 @@ module.exports = function adminHeaders (req, res, next) {
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
       `connect-src ${connectSrc}`,
+      "form-action 'self'",
+      "frame-src 'self'",
       "frame-ancestors 'none'"
     ].join('; ')
   )

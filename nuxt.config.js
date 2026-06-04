@@ -16,6 +16,8 @@ const adminCsp = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
   "connect-src 'self'",
+  "form-action 'self'",
+  "frame-src 'self'",
   "frame-ancestors 'none'"
 ].join('; ')
 export default {
@@ -78,6 +80,8 @@ export default {
     '@/plugins/auth-hydrate.client',
     { src: '@/plugins/dialog-draggable', mode: 'client' },
     { src: '@/plugins/ckeditor', mode: 'client' },
+    { src: '@/plugins/ckeditor-image-url-guard.client.js', mode: 'client' },
+    { src: '@/plugins/ckeditor-upload.client.js', mode: 'client' },
     'node_modules/eztech-core-components/plugins/global-prototype',
     '@/plugins/axios',
     { src: 'node_modules/eztech-core-components/plugins/chart.js' }

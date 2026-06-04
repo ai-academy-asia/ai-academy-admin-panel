@@ -26,6 +26,21 @@
       @form-search="handleFormSearch"
       @locale-change="handleLocaleChange"
     >
+      <el-alert
+        v-if="isNewsService"
+        slot="form-header"
+        class="w-full"
+        type="info"
+        show-icon
+        :closable="true"
+      >
+        <div class="text-sm leading-relaxed">
+          <strong>Зураг (гарчиг / нүүр зураг):</strong>
+          Дээрх <strong>«{{ imageColumnTitle }}»</strong> талбарт дарж компьютерээс JPG эсвэл PNG сонгон upload хийнэ.
+          Google Photos холбоос энд болон editor-д <strong>харагдахгүй</strong>.
+          Мэдээний биеийн зураг хэрэгтэй бол editor-ийн Image → <strong>Upload</strong> таб ашиглана.
+        </div>
+      </el-alert>
       <div slot="actions" class="w-full px-2 flex flex-row flex-wrap justify-end">
         <el-button
           v-if="hasHandbook"
@@ -186,6 +201,20 @@ export default {
     },
     buttons () {
       return getButtons(this.level)
+    },
+    isNewsService () {
+      const name = (this.tableName || this.$route.params.tableDetail || '').toLowerCase()
+      return name.includes('news') || name.includes('anews')
+    },
+    imageColumnTitle () {
+      const col = (this.columns || []).find((c) => {
+        if (['image', 'profileImage'].includes(c.col_type)) {
+          return true
+        }
+        return /image|зураг|photo/i.test(c.col_field || '') ||
+          /зураг/i.test(c.form?.label || '')
+      })
+      return col?.form?.label || 'Зураг'
     }
   },
   watch: {
