@@ -19,6 +19,8 @@ NODE_ENV=production
 
 ## Deploy steps
 
+`postinstall` applies `patches/eztech-core-components+*.patch` (CKEditor CSS path + form edit permissions).
+
 ```bash
 cd /var/www/wecode-admin
 git pull

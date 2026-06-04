@@ -2,12 +2,16 @@ import { join } from 'path'
 import serveStatic from 'serve-static'
 import { getDefaultConfig } from 'eztech-core-components/utils/default-nuxt-config'
 const defaultConfig = getDefaultConfig()
+const ckeditorStatic = serveStatic(join(__dirname, 'node_modules/eztech-core-components/ckeditor'))
+const routerBase = (process.env.ROUTER_BASE || '/').replace(/\/$/, '')
+const ckeditorPaths = ['/ckeditor']
+if (routerBase && routerBase !== '') {
+  ckeditorPaths.push(`${routerBase}/ckeditor`)
+}
 export default {
   ...defaultConfig,
   buildDir: process.env.BUILD_DIR || 'distbuild',
-  serverMiddleware: [
-    { path: '/ckeditor', handler: serveStatic(join(__dirname, 'node_modules/eztech-core-components/ckeditor')) }
-  ],
+  serverMiddleware: ckeditorPaths.map(path => ({ path, handler: ckeditorStatic })),
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s | AI Academy',

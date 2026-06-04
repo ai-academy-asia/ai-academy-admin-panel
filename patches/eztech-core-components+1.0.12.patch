@@ -1,0 +1,29 @@
+diff --git a/node_modules/eztech-core-components/comps/CoreCkeditor.vue b/node_modules/eztech-core-components/comps/CoreCkeditor.vue
+index caf1166..ea7f541 100644
+--- a/node_modules/eztech-core-components/comps/CoreCkeditor.vue
++++ b/node_modules/eztech-core-components/comps/CoreCkeditor.vue
+@@ -179,7 +179,7 @@ export default {
+           'sup', 's', 'u', 'blockquote', 'br', 'hr'
+         ].join(' '),
+         contentsCss: [
+-          '/ckeditor/ckcontent.css',
++          `${this.env.routerBase || '/'}ckeditor/ckcontent.css`,
+           'data:text/css;charset=utf-8,' +
+           (this.isSimple
+             ? encodeURIComponent(`
+diff --git a/node_modules/eztech-core-components/utils/table-helper.js b/node_modules/eztech-core-components/utils/table-helper.js
+index 974cc75..37e33cc 100644
+--- a/node_modules/eztech-core-components/utils/table-helper.js
++++ b/node_modules/eztech-core-components/utils/table-helper.js
+@@ -1387,7 +1387,10 @@ export const getAsyncData = async ({
+   }
+   let formReadonly = false
+   if (!skipFormReadonly) {
+-    formReadonly = !['1'].includes(project._id) && !(parentLevel || level)?.actions?.some(c => ['EDIT', 'CREATE', 'DECISION'].includes(c.code))
++    const effectiveLevel = parentLevel || level
++    const canEditForm = effectiveLevel?.is_admin ||
++      effectiveLevel?.actions?.some(c => ['EDIT', 'CREATE', 'DECISION'].includes(c.code))
++    formReadonly = !['1'].includes(project._id) && !canEditForm
+   }
+   const form_col = Number(table.form_col || 1)
+   let hasPassword = false
