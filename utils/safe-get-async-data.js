@@ -1,4 +1,5 @@
 import { getAsyncData } from 'eztech-core-components/utils/table-helper'
+import { enhanceClassroomRequestTableConfig } from '~/utils/classroom-request-columns'
 
 const emptyAsyncData = {
   configProjectId: null,
@@ -18,7 +19,8 @@ const emptyAsyncData = {
 
 export async function safeGetAsyncData (opts) {
   try {
-    return await getAsyncData(opts)
+    const data = await getAsyncData(opts)
+    return enhanceClassroomRequestTableConfig(opts?.tableName, data)
   } catch (err) {
     const status = err?.response?.status
     console.error('safeGetAsyncData', opts?.tableName, status || err?.message || err)
