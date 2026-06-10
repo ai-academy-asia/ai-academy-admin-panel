@@ -20,7 +20,8 @@ function buildVirtualColumn ({ templateCol, field, label, width, orderOffset = -
     props: {
       ...templateCol.props,
       label,
-      width
+      width,
+      sortable: false
     }
   }
 }
