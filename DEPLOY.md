@@ -23,6 +23,23 @@ NODE_ENV=production
 
 **CKEditor images:** Do not paste Google Photos share links (`photos.app.goo.gl`) in the Image URL box — they are web pages, not image files. Use the editor **Upload** tab (`/api/file/upload/ckeditor`) or the form **Зураг** field. If CSP errors persist after deploy, check nginx is not overriding `Content-Security-Policy` on `/manage/*`.
 
+**413 on image upload (https://www.ai-academy.asia/manage/):** Admin image uploads go to `/api/file/upload/ckeditor` on the same host. Nginx default body limit is **1m**; set **50m** on the `ai-academy.asia` / `www.ai-academy.asia` vhost.
+
+On the server (Hestia):
+
+```bash
+# Option A — include snippet (survives Hestia template rebuilds)
+sudo cp /var/www/wecode-admin/nginx.ssl.conf_upload \
+  /home/Oyungoo/conf/web/ai-academy.asia/nginx.ssl.conf_upload
+
+# Option B — edit full vhost (see ai-academy.asia.ssl.conf in repo)
+# /etc/nginx/conf.d/ai-academy.asia.ssl.conf
+# Add at server { } level and in location /api/ { }:
+#   client_max_body_size 50m;
+
+sudo nginx -t && sudo systemctl reload nginx
+```
+
 ```bash
 cd /var/www/wecode-admin
 git pull

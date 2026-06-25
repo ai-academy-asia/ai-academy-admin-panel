@@ -1,0 +1,10 @@
+# Deploy to Hestia include path (picked up by nginx.ssl.conf_* include):
+#   /home/Oyungoo/conf/web/ai-academy.asia/nginx.ssl.conf_upload
+#
+# Admin: https://www.ai-academy.asia/manage/
+# Uploads: POST https://www.ai-academy.asia/api/file/upload/ckeditor
+#
+# Nginx default is 1m → 413 for images over ~1 MB. Backend allows 50m.
+# Then: sudo nginx -t && sudo systemctl reload nginx
+
+client_max_body_size 50m;
