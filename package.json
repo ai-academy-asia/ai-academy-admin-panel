@@ -20,7 +20,7 @@
     "cookie-universal-nuxt": "^2.2.2",
     "core-js": "^3.25.3",
     "element-ui": "^2.15.14",
-    "eztech-core-components": "latest",
+    "eztech-core-components": "1.0.12",
     "hls.js": "^1.5.17",
     "nuxt": "^2.17.3",
     "socket.io-client": "^4.7.5",
@@ -50,5 +50,10 @@
     "eslint-plugin-vue": "^9.5.1",
     "patch-package": "^8.0.1",
     "postcss": "^8.4.17"
+  },
+  "overrides": {
+    "unplugin": {
+      "webpack-sources": "^3"
+    }
   }
 }
